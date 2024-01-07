@@ -1,0 +1,66 @@
+.first-image-container {
+  background-image: url(../Images//headerbg.jpg);
+  height: 500px;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.first-container-heading {
+  font-size: 60px;
+  position: relative;
+  top: 40px;
+}
+/* CardComponent.css */
+.card-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+.card {
+  width: 30%;
+  height: 200px;
+  text-align: center;
+
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 6px;
+  transition: transform 0.3s ease-in-out;
+}
+.card p{
+    font-size: 20px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+.location-icon{
+    font-size: 30px;
+    margin-bottom: 5px;
+    color: #C37B7F;
+}
+.phone-icon{
+    font-size: 30px;
+    margin-bottom: 5px;
+    color: #76BA64;
+}
+.email-icon{
+    font-size: 30px;
+    margin-bottom: 5px;
+    color: red;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .card {
+    width: 100%;
+  }
+}

@@ -3,6 +3,7 @@ import { FaShoppingCart, FaHeart, FaUser } from "react-icons/fa";
 import { BiSolidSearchAlt2 } from "react-icons/bi";
 import "../Assets/Styles/Header.css";
 import logo from "../Assets/Images/main-logo.png";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const primaryNavRef = useRef(null);
@@ -12,7 +13,7 @@ const Header = () => {
   const handleToggleClick = () => {
     setIsExpanded((prev) => !prev);
   };
-  // hrllo
+ 
 
   const handleContainerClick = (e) => {
     if (
@@ -84,19 +85,15 @@ const Header = () => {
                   </a>
                 </li>
                 <li className="list-item">
-                  <a className="nav__link" href="#">
+                  <Link className="nav__link" to="/products">
                     Products
-                  </a>
+                  </Link>
                 </li>
+               
                 <li className="list-item">
-                  <a className="nav__link" href="#">
-                    Links
-                  </a>
-                </li>
-                <li className="list-item">
-                  <a className="nav__link" href="#">
+                  <Link className="nav__link" to="/contact-us">
                     Contact
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
