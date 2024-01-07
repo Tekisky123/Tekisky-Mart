@@ -1,0 +1,59 @@
+.maindiv {
+    background-color: #1f2431;
+    height: 500px;
+    width: 100%;
+
+
+}
+
+.Headings {
+    color: aliceblue;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 40px;
+    font-family: 'Poppins';
+   
+
+}
+
+.footer-logo {
+    width: 180px;
+    margin-left: 500px;
+
+    filter: invert(80%) sepia(100%) saturate(200%); 
+
+}
+
+.main-content {
+    color: #FFFFFF;
+    display: flex;
+    justify-content: space-around;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.phone-div {
+    font-family: 'Gill Sans', 'Gill Sans MT';
+}
+
+.location-div {
+    font-family: 'Gill Sans', 'Gill Sans MT';
+
+}
+
+.Border-line {
+    width: 1120px;
+    height: 200px;
+    border-top: solid;
+    border-bottom: solid;
+    color: rgb(185, 175, 175);
+    margin-left: 60px;
+    margin-top: 40px;
+
+}
+
+li{
+    list-style: none;
+  margin-top: 5px;
+}
+
+
