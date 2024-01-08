@@ -15,8 +15,8 @@ const ContactUs = () => {
       <div className="first-image-container">
         <h2 className="first-container-heading">CONTACT US</h2>
       </div>
-      <div className="card-container">
-        <div className="card">
+      <div className="about-card-container">
+        <div className="about-card">
         <FaLocationDot className="location-icon"/>
           <h2>Address</h2>
           <br />
@@ -26,7 +26,7 @@ const ContactUs = () => {
             431605 INDIA
           </p>
         </div>
-        <div className="card">
+        <div className="about-card">
         <FaPhoneAlt className="phone-icon" />
           <h2>Phone</h2>
           <br />
@@ -35,7 +35,7 @@ const ContactUs = () => {
           <br />
           <p> +91 9890796149</p>
         </div>
-        <div className="card">
+        <div className="about-card">
         <MdOutlineAlternateEmail className="email-icon" />
           <h2>Email</h2>
           <br />

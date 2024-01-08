@@ -12,14 +12,14 @@
   top: 40px;
 }
 /* CardComponent.css */
-.card-container {
+.about-card-container {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
   margin-top: 50px;
 }
 
-.card {
+.about-card {
   width: 30%;
   height: 200px;
   text-align: center;
@@ -30,11 +30,11 @@
   margin: 6px;
   transition: transform 0.3s ease-in-out;
 }
-.card p{
+.about-card p{
     font-size: 20px;
 }
 
-.card:hover {
+.about-card:hover {
   transform: scale(1.05);
 }
 .location-icon{
@@ -54,13 +54,13 @@
 }
 
 @media screen and (max-width: 768px) {
-  .card {
+  .about-card {
     width: 45%;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .card {
+  .about-card {
     width: 100%;
   }
 }

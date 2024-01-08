@@ -3,6 +3,7 @@ import Carousel from "./Components/Carousel";
 import Header from "./Components/Header";
 import Products from "./Pages/Products";
 import ContactUs from "./Pages/ContactUs";
+import SingleProduct from "./Pages/SingleProduct";
 
 // app apps hello
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <Routes>
       <Route path="/products" element={<Products/>}/>
       <Route path="/contact-us" element={<ContactUs/>}/>
+      <Route path="/single-product" element={<SingleProduct/>}/>
     </Routes>
     
     </div>
