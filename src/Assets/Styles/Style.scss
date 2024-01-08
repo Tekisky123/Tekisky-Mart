@@ -110,16 +110,19 @@
                              font-weight: bold;
                              margin-top: 0px;
                             }
-
-                            button{
-                                border: none;
-                                color: #fff;
-                                padding: 10px;
-                                border-radius: 5px;
-                                background: #D5A455;
-                                width: 106.64px;
-
+                            .buy-button{
+                                display: flex;
+                                button{
+                                    border: none;
+                                    color: #fff;
+                                    padding: 10px;
+                                    border-radius: 5px;
+                                    background: #D5A455;
+                                    width: 106.64px;
+    
+                                }
                             }
+                   
                         }
                     }
                 }

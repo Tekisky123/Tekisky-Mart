@@ -3,6 +3,7 @@ import "../Assets/Styles/Style.scss";
 import OurCarousel from "./Carousel";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Testimonials from "./Testimonials";
 
 const Home = () => {
   return (
@@ -54,9 +55,7 @@ const Home = () => {
             </Col>
             <Col xs={12} md={6} xl={3}>
               <div className="category">
-                {" "}
                 <div className="subcategory">
-                  {" "}
                   <img
                     src="https://www.tasteofhome.com/wp-content/uploads/2018/01/Festive-Stuffed-Dates_EXPS_RR22_25816_DR_12_09_6b-3.jpg"
                     alt=""
@@ -68,6 +67,23 @@ const Home = () => {
           </Row>
         </div>
       </div>
+
+
+      <div className="c-tesimonals">
+      <h3>Tesimonals</h3>
+      <div className="main-tesimonals">
+        <Row>
+          <Col xs={12} md={6} xl={3}>
+            <div></div>
+          </Col>
+          <Col xs={12} md={6} xl={3}>
+            <div></div>
+          </Col>
+        </Row>
+      </div>
+    </div>
+
+
       <div className="B-Saller">
         <h3>Best Sellers</h3>
         <div className="mainSaller">
@@ -85,7 +101,11 @@ const Home = () => {
                   <div className="BestSellerDetails">
                     <h6>Kimia Dates</h6>
                     <p>₹310.00</p>
-                    <button>Add to cart</button>
+                    <div className="buy-button">
+                    <button>Add To Cart</button>
+                    <button>Buy Now</button>
+                    </div>
+                    
                   </div>
                 </div>
               </div>{" "}
@@ -103,7 +123,10 @@ const Home = () => {
                   <div className="BestSellerDetails">
                     <h6>Kimia Dates</h6>
                     <p>₹310.00</p>
-                    <button>Add to cart</button>
+                    <div className="buy-button">
+                    <button>Add To Cart</button>
+                    <button>Buy Now</button>
+                    </div>
                   </div>
                 </div>
               </div>{" "}
@@ -121,7 +144,10 @@ const Home = () => {
                   <div className="BestSellerDetails">
                     <h6>Kimia Dates</h6>
                     <p>₹310.00</p>
-                    <button>Add to cart</button>
+                    <div className="buy-button">
+                    <button>Add To Cart</button>
+                    <button>Buy Now</button>
+                    </div>
                   </div>
                 </div>
               </div>{" "}
@@ -139,7 +165,10 @@ const Home = () => {
                   <div className="BestSellerDetails">
                     <h6>Kimia Dates</h6>
                     <p>₹310.00</p>
-                    <button>Add to cart</button>
+                    <div className="buy-button">
+                    <button>Add To Cart</button>
+                    <button>Buy Now</button>
+                    </div>
                   </div>
                 </div>
               </div>{" "}
@@ -157,7 +186,10 @@ const Home = () => {
                   <div className="BestSellerDetails">
                     <h6>Kimia Dates</h6>
                     <p>₹310.00</p>
-                    <button>Add to cart</button>
+                    <div className="buy-button">
+                    <button>Add To Cart</button>
+                    <button>Buy Now</button>
+                    </div>
                   </div>
                 </div>
               </div>{" "}
@@ -175,7 +207,10 @@ const Home = () => {
                   <div className="BestSellerDetails">
                     <h6>Kimia Dates</h6>
                     <p>₹310.00</p>
-                    <button>Add to cart</button>
+                    <div className="buy-button">
+                    <button>Add To Cart</button>
+                    <button>Buy Now</button>
+                    </div>
                   </div>
                 </div>
               </div>{" "}
@@ -193,7 +228,10 @@ const Home = () => {
                   <div className="BestSellerDetails">
                     <h6>Kimia Dates</h6>
                     <p>₹310.00</p>
-                    <button>Add to cart</button>
+                    <div className="buy-button">
+                    <button>Add To Cart</button>
+                    <button>Buy Now</button>
+                    </div>
                   </div>
                 </div>
               </div>{" "}
@@ -211,7 +249,10 @@ const Home = () => {
                   <div className="BestSellerDetails">
                     <h6>Kimia Dates</h6>
                     <p>₹310.00</p>
-                    <button>Add to cart</button>
+                    <div className="buy-button">
+                    <button>Add To Cart</button>
+                    <button>Buy Now</button>
+                    </div>git 
                   </div>
                 </div>
               </div>{" "}
@@ -219,6 +260,8 @@ const Home = () => {
 
           </Row>
         </div>
+      </div>
+      <div>
       </div>
     </div>
   );

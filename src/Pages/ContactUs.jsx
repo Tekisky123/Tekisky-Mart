@@ -1,10 +1,11 @@
 import React from "react";
 import "../Assets/Styles/ContactUs.css";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { FaLocationDot } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineAlternateEmail } from "react-icons/md";
+import { Map, TileLayer } from 'react-leaflet';
 
 
 const ContactUs = () => {
