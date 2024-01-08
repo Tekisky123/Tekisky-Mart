@@ -74,10 +74,10 @@ a {
 
 
 .logo {
- height: 160px;
- width: 180px;
+ height: 260px;
+ width: 260px;
  position: absolute;
- top: -35px;
+ top: -85px;
 }
 
 .nav-toggle {
@@ -195,7 +195,9 @@ a {
     height: 120px;
   }
   .logo{
-    top: -60px;
+    top: -150px;
+    left: 80px;
+    
   }
   .header-content--right {
     height: auto;
