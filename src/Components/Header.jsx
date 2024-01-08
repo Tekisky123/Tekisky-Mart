@@ -75,12 +75,12 @@ const Header = () => {
                 ref={primaryNavRef}
               >
                 <li className="list-item">
-                  <a className="nav__link" href="#">
+                  <a className="nav__link" to="/">
                     Home
                   </a>
                 </li>
                 <li className="list-item">
-                  <a className="nav__link" href="#">
+                  <a className="nav__link" to="">
                     About
                   </a>
                 </li>
