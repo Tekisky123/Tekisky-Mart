@@ -1,5 +1,6 @@
-import Carousel from "./Components/Carousel";
+import OurCarousel from "./Components/Carousel";
 import Header from "./Components/Header";
+import Home from "./Components/Home";
 
 // app apps hello
 function App() {
@@ -7,7 +8,7 @@ function App() {
   return (
     <div className="App">
     <Header/>
-    <Carousel/>
+   <Home/>
     </div>
   );
 }

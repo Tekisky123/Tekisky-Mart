@@ -1,0 +1,129 @@
+
+
+
+.cx-Home{
+    .P-category{
+        h3{
+            text-align: center;
+            margin: 30px auto;
+            font-weight: bold;
+            // color: grey;
+        }
+        .mainCategory{
+            width: 90%;
+            margin: auto;
+            .row{
+                .category{
+                    height: 250px;
+                    padding: 20px;
+                    .subcategory{
+                        border: 1px solid lightgray;
+                        border-radius: 5px;
+
+                        img{
+                           width: 100%;
+                           height: 200px;
+                        }
+
+                        p{
+                            height: 30px;
+                            margin-top: 15px;
+                            text-align: center;
+                            font-weight: bold;
+                            // color: grey;
+                        }
+                        .BestSellerDetails{
+                            padding: 10px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+
+                            h6{
+                                font-size: 17px;
+                                font-weight: bold;
+                            }
+
+                            p{
+                             font-weight: bold;
+                             margin-top: 0px;
+                            }
+
+                            button{
+                                border: none;
+                                color: #fff;
+                                padding: 10px;
+                                border-radius: 5px;
+                                background: #D5A455;
+                                width: 106.64px;
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .B-Saller{
+        h3{
+            text-align: center;
+            margin: 70px auto 30px auto;
+            font-weight: bold;
+            // color: grey;
+        }
+        .mainSaller{
+            width: 90%;
+            margin: auto;
+            .row{
+                .Saller{
+                    height: 380px;
+                    padding: 20px;
+                    .subSaller{
+                        border: 1px solid lightgray;
+                        border-radius: 5px;
+
+                        img{
+                           width: 100%;
+                           height: 200px;
+                        }
+
+                        p{
+                            height: 30px;
+                            margin-top: 15px;
+                            text-align: center;
+                            font-weight: bold;
+                            // color: grey;
+                        }
+                        .BestSellerDetails{
+                            padding: 10px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+
+                            h6{
+                                font-size: 17px;
+                                font-weight: bold;
+                            }
+
+                            p{
+                             font-weight: bold;
+                             margin-top: 0px;
+                            }
+
+                            button{
+                                border: none;
+                                color: #fff;
+                                padding: 10px;
+                                border-radius: 5px;
+                                background: #D5A455;
+                                width: 106.64px;
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
