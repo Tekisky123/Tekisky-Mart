@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import Carousel from "./Components/Carousel";
 import Header from "./Components/Header";
 import Products from "./Pages/Products";
 import ContactUs from "./Pages/ContactUs";
 import SingleProduct from "./Pages/SingleProduct";
+import Home from "./Components/Home";
 
 // app apps hello
 function App() {
@@ -13,9 +13,11 @@ function App() {
     <Header/>
     {/* <Carousel/> */}
     <Routes>
+      <Route path="/" element={<Home/>}/>
       <Route path="/products" element={<Products/>}/>
       <Route path="/contact-us" element={<ContactUs/>}/>
       <Route path="/single-product" element={<SingleProduct/>}/>
+
     </Routes>
     
     </div>
