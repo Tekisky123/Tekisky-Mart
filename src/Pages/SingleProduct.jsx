@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../Assets/Styles/SingleProduct.css";
+import "../Assets/Styles/Style.scss"
 import dates1 from "../Assets/Images/dates1.jpg";
 import dates2 from "../Assets/Images/dates2.jpg";
 import dates3 from "../Assets/Images/dates3.jpg";
@@ -14,6 +15,7 @@ import {
 } from "react-icons/fa";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { IoLogoWhatsapp } from "react-icons/io";
+import { Col, Row } from "react-bootstrap";
 
 const SingleProduct = () => {
   const [imgId, setImgId] = useState(1);
@@ -73,12 +75,12 @@ const SingleProduct = () => {
     };
   }, [imgId]);
   return (
-    <>
+    <div className="single-main-container">
       <div className="first-image-container">
         <h2 className="first-container-heading">Arsh Safawi AL Madina Dates</h2>
       </div>
-      <div className="card-wrapper">
-        <div className="card">
+      <div className="product-card-wrapper">
+        <div className="product-card">
           {/* card left */}
           <div className="product-imgs">
             <div className="img-display">
@@ -147,45 +149,27 @@ const SingleProduct = () => {
                 All ARSH Dates, nuts and dry fruits are hygienically packed in a
                 facility meeting food safety standards.
               </p>
-              <ul>
-                <li>
-                  Color: <span>Brown</span>
-                </li>
-                <li>
-                  Available: <span>in stock</span>
-                </li>
-                <li>
-                  Category: <span>Dates</span>
-                </li>
-                <li>
-                  Shipping Area: <span>All over the world</span>
-                </li>
-                <li>
-                  Shipping Fee: <span>Free</span>
-                </li>
-              </ul>
             </div>
 
             <div className="purchase-info">
               <input type="number" min="0" value="1" />
               <button type="button" className="btn">
-                Add to Cart 
-              <FaCartPlus className="cart-icon"/>
+                Add to Cart
+                <FaCartPlus className="cart-icon" />
               </button>
-              
             </div>
 
             <div className="social-links">
               <p>Share At: </p>
               <Link>
-                <FaFacebook className="facebook"/>
+                <FaFacebook className="facebook" />
               </Link>
               <Link>
                 <AiFillTwitterCircle className="twitter" />
               </Link>
-             
+
               <Link>
-                <IoLogoWhatsapp className="whatsapp"/>
+                <IoLogoWhatsapp className="whatsapp" />
               </Link>
               <Link>
                 <FaPinterest className="pinterest" />
@@ -194,7 +178,122 @@ const SingleProduct = () => {
           </div>
         </div>
       </div>
-    </>
+      <div className="details-container">
+        <div className="details-buttons">
+          <button>Description</button>
+          <button>Reviews (0)</button>
+        </div>
+        <div className="data-container">
+          <h2>Description</h2>
+          <p>
+            Khudri dates are a uniform dark brown color, not too wrinkly (dates
+            can range from smooth to as wrinkly as a prune depending on the
+            variety). The skin of these dates flake a little.
+          </p>
+          <ul>
+            <li>
+              Dates are great energy boosters as they contain natural sugar like
+              glucose, sucrose and fructose. To get more advantage add dates to
+              milk and make it a very nutritious snack. Dates are very low in
+              calories and are extremely suitable for health conscious people.
+            </li>
+            <li>It helps improve the digestive system.</li>
+            <li>
+              Dates are free from cholesterol and contain very low fat. Dates
+              are rich in vitamins and minerals.
+            </li>
+            <li>
+              Dates help in weight gain and are also high in antioxidants, which
+              may contribute to many of their health benefits
+            </li>
+            <li>Pack contains: 250g | Best Before 12 Months</li>
+          </ul>
+        </div>
+        <div className="cx-single">
+        <div className="B-Saller">
+        <h3>Related products</h3>
+        <div className="mainSaller">
+          <Row>
+            <Col xs={12} md={6} xl={3}>
+              {" "}
+              <div className="Saller">
+                {" "}
+                <div className="subSaller">
+                  {" "}
+                  <img
+                    src="https://grocerkid.com/wp-content/uploads/2021/10/kimia-dates.jpg"
+                    alt=""
+                  />
+                  <div className="BestSellerDetails">
+                    <h6>Kimia Dates</h6>
+                    <p>₹310.00</p>
+                    <button>Add to cart</button>
+                  </div>
+                </div>
+              </div>{" "}
+            </Col>
+            <Col xs={12} md={6} xl={3}>
+              {" "}
+              <div className="Saller">
+                {" "}
+                <div className="subSaller">
+                  {" "}
+                  <img
+                    src="https://grocerkid.com/wp-content/uploads/2021/10/kimia-dates.jpg"
+                    alt=""
+                  />
+                  <div className="BestSellerDetails">
+                    <h6>Kimia Dates</h6>
+                    <p>₹310.00</p>
+                    <button>Add to cart</button>
+                  </div>
+                </div>
+              </div>{" "}
+            </Col>
+            <Col xs={12} md={6} xl={3}>
+              {" "}
+              <div className="Saller">
+                {" "}
+                <div className="subSaller">
+                  {" "}
+                  <img
+                    src="https://grocerkid.com/wp-content/uploads/2021/10/kimia-dates.jpg"
+                    alt=""
+                  />
+                  <div className="BestSellerDetails">
+                    <h6>Kimia Dates</h6>
+                    <p>₹310.00</p>
+                    <button>Add to cart</button>
+                  </div>
+                </div>
+              </div>{" "}
+            </Col>
+            <Col xs={12} md={6} xl={3}>
+              {" "}
+              <div className="Saller">
+                {" "}
+                <div className="subSaller">
+                  {" "}
+                  <img
+                    src="https://grocerkid.com/wp-content/uploads/2021/10/kimia-dates.jpg"
+                    alt=""
+                  />
+                  <div className="BestSellerDetails">
+                    <h6>Kimia Dates</h6>
+                    <p>₹310.00</p>
+                    <button>Add to cart</button>
+                  </div>
+                </div>
+              </div>{" "}
+            </Col>
+           
+
+          </Row>
+        </div>
+      </div>
+      </div>
+      </div>
+    </div>
   );
 };
 

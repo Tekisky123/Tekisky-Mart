@@ -4,6 +4,7 @@ import Products from "./Pages/Products";
 import ContactUs from "./Pages/ContactUs";
 import SingleProduct from "./Pages/SingleProduct";
 import Home from "./Components/Home";
+import AboutUs from "./Pages/AboutUs";
 
 // app apps hello
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Route path="/" element={<Home/>}/>
       <Route path="/products" element={<Products/>}/>
       <Route path="/contact-us" element={<ContactUs/>}/>
+      <Route path="/about-us" element={<AboutUs/>}/>
       <Route path="/single-product" element={<SingleProduct/>}/>
 
     </Routes>
