@@ -5,6 +5,8 @@ import ContactUs from "./Pages/ContactUs";
 import SingleProduct from "./Pages/SingleProduct";
 import Home from "./Components/Home";
 import AboutUs from "./Pages/AboutUs";
+import Footer from "./Components/Footer";
+import ProductForm from "./Pages/ProductForm";
 
 // app apps hello
 function App() {
@@ -18,9 +20,11 @@ function App() {
       <Route path="/products" element={<Products/>}/>
       <Route path="/contact-us" element={<ContactUs/>}/>
       <Route path="/about-us" element={<AboutUs/>}/>
-      <Route path="/single-product" element={<SingleProduct/>}/>
+      <Route path="/single-product/:id" element={<SingleProduct/>}/>
+      <Route path="/product-form" element={<ProductForm/>}/>
 
     </Routes>
+    <Footer/>
     
     </div>
   );
