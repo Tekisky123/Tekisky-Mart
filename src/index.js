@@ -6,13 +6,16 @@ import App from './App';
 import "./Globle.css";
 
 import { BrowserRouter } from 'react-router-dom';
+import AppContext from './Context/Context';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
-    <App />
-    </BrowserRouter>
+    <AppContext>
+      <App />
+    </AppContext>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

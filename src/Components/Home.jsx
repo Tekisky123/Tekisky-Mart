@@ -4,8 +4,17 @@ import OurCarousel from "./Carousel";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Testimonials from "./Testimonials";
+import sale10 from "../Assets/Images/SALE10.jpg";
+import sale30 from "../Assets/Images/SALE30.jpg";
+import sale50 from "../Assets/Images/SALE50.jpg";
+import sale70 from "../Assets/Images/SALE70.jpg";
+import { useNavigate } from "react-router-dom";
+
+
 
 const Home = () => {
+
+  const navigation=useNavigate()
   return (
     <div className="cx-Home">
       <OurCarousel />
@@ -70,16 +79,52 @@ const Home = () => {
 
 
       <div className="c-tesimonals">
-      <h3>Tesimonals</h3>
+      <h3>Offers</h3>
       <div className="main-tesimonals">
-        <Row>
-          <Col xs={12} md={6} xl={3}>
-            <div></div>
-          </Col>
-          <Col xs={12} md={6} xl={3}>
-            <div></div>
-          </Col>
-        </Row>
+      <Row>
+            <Col xs={12} md={6} xl={3}>
+              <div className="tesimonals">
+                <div className="subtesimonals">
+                <img
+                    src={sale10}
+                    alt=""
+                  />
+                </div>
+              </div>{" "}
+            </Col>
+            <Col xs={12} md={6} xl={3}>
+              <div className="tesimonals">
+                <div className="subtesimonals">
+                <img
+                    src={sale30}
+                    alt=""
+                  />
+                </div>
+              </div>{" "}
+            </Col>
+            <Col xs={12} md={6} xl={3}>
+              <div className="tesimonals">
+                <div className="subtesimonals">
+                <img
+                    src={sale50}
+                    alt=""
+                  />
+                </div>
+              </div>{" "}
+            </Col>
+            <Col xs={12} md={6} xl={3}>
+              <div className="tesimonals">
+                <div className="subtesimonals">
+                <img
+                    src={sale70}
+                    alt=""
+                  />
+             
+                </div>
+              </div>{" "}
+            </Col>
+
+          </Row>
       </div>
     </div>
 
@@ -102,7 +147,7 @@ const Home = () => {
                     <h6>Kimia Dates</h6>
                     <p>₹310.00</p>
                     <div className="buy-button">
-                    <button>Add To Cart</button>
+                    <button onClick={()=>navigation('/cart')}>Add To Cart</button>
                     <button>Buy Now</button>
                     </div>
                     
@@ -249,10 +294,10 @@ const Home = () => {
                   <div className="BestSellerDetails">
                     <h6>Kimia Dates</h6>
                     <p>₹310.00</p>
-                    <div className="buy-button">
+                     <div className="buy-button">
                     <button>Add To Cart</button>
                     <button>Buy Now</button>
-                    </div>git 
+                    </div>
                   </div>
                 </div>
               </div>{" "}

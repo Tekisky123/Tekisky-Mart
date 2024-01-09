@@ -62,7 +62,9 @@ const Header = () => {
             {/* Icons for Cart, Favorites, and Profile */}
             <div className="header-icons">
             <BiSolidSearchAlt2  className="header-icon" />
-              <FaShoppingCart className="header-icon" />
+              <FaShoppingCart className="header-icon cart-btn" > 
+              <span className="badge">5</span>
+              </FaShoppingCart>
               <FaHeart className="header-icon" />
               <FaUser className="header-icon" />
             </div>
