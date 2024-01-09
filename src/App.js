@@ -6,6 +6,8 @@ import SingleProduct from "./Pages/SingleProduct";
 import Home from "./Components/Home";
 import AboutUs from "./Pages/AboutUs";
 import Cart from "./Components/Cart";
+import Footer from "./Components/Footer";
+import ProductForm from "./Pages/ProductForm";
 
 // app apps hello
 function App() {
@@ -19,10 +21,12 @@ function App() {
       <Route path="/products" element={<Products/>}/>
       <Route path="/contact-us" element={<ContactUs/>}/>
       <Route path="/about-us" element={<AboutUs/>}/>
-      <Route path="/single-product" element={<SingleProduct/>}/>
       <Route path="/cart" element={<Cart/>}/>
+      <Route path="/single-product/:id" element={<SingleProduct/>}/>
+      <Route path="/product-form" element={<ProductForm/>}/>
 
     </Routes>
+    <Footer/>
     
     </div>
   );

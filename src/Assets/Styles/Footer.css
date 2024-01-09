@@ -1,0 +1,369 @@
+footer {
+    background-color: rgb(0, 0, 0);
+    color: #ffff;
+    font-size: 62.5%;
+   
+  }
+  
+  .footersection2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .mainImgDiv{
+    background-color: #fff;
+  }
+  .mainImgDiv img{
+    width: 6.1875rem;
+    height: 9.50188rem;
+  }
+  .footerContactdiv1 {
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+  }
+  
+  .footerCard h3 {
+    font-family: Poppins;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.5rem;
+  }
+  .footerCard p {
+    font-family: Poppins;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.3125rem;
+  }
+  
+  
+  
+  .footerContactdiv2 {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem 0rem;
+    width: 70%;
+    border-top: 1px solid #4F4F4F;
+    border-bottom: 1px solid #4F4F4F;
+  }
+  .paradiv {
+    width: 18vw;
+  }
+  
+  .paradiv p {
+    color: #c9c9c9;
+    font-family: Poppins;
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.21875rem;
+  }
+  
+  .LinkDiv {
+   
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .LinkDiv h3 {
+    color: #fff;
+    font-family: Poppins;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1rem; /* 100% */
+    
+  }
+  
+  .LinkDiv  li {
+    color: #c9c9c9;
+    font-family: Poppins;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.3125rem;
+    list-style: none;
+  }
+  
+  .footerContactdiv3 {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    padding: 1rem 1rem;
+  }
+  
+  .copyrightDiv {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .copyrightDiv p {
+    color: #c9c9c9;
+  
+    font-family: Poppins;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 300;
+  }
+  @media only screen and (max-width: 600px) {
+    footer {
+      background-color: rgb(0, 0, 0);
+      color: #ffff;
+      font-size: 62.5%;
+     
+    }
+    
+    .footersection2 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .mainImgDiv{
+      background-color: #fff;
+    }
+    .mainImgDiv img{
+      width: 6.1875rem;
+      height: 9.50188rem;
+    }
+  
+    .footerContactdiv1 {
+      display: flex;
+      flex-direction: column;
+     align-content: space-between;
+     align-items: center;
+     
+      width: 70%;
+      margin-top: 1rem;
+    }
+    
+    .footerCard h3 {
+      font-family: Poppins;
+      font-size: .8rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 1.5rem;
+      text-align: center;
+    }
+    .footerCard p {
+      font-family: Poppins;
+      font-size: 0.7rem;
+      font-style: normal;
+      font-weight: 400;
+     
+    }
+    
+    .footerContactdiv2 {
+      display: flex;
+  
+      flex-direction: column;
+      align-content: space-between;
+      gap: 1rem;
+     align-items: center;
+      padding: 1rem 0rem;
+      width: 100%;
+      border-top: 1px solid #4F4F4F;
+      border-bottom: 1px solid #4F4F4F;
+    }
+    .paradiv {
+      width: 80%;
+    }
+    
+    .paradiv p {
+      color: #c9c9c9;
+      font-family: Poppins;
+      font-size: 0.9125rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.21875rem;
+    }
+    
+    .LinkDiv {
+     
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .LinkDiv h3 {
+      color: #fff;
+      font-family: Poppins;
+      font-size: 1.2rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 1rem; 
+      text-align: center;
+      
+    }
+    
+    .LinkDiv  li {
+      color: #c9c9c9;
+      font-family: Poppins;
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.3125rem;
+      list-style: none;
+    }
+    
+    .footerContactdiv3 {
+      display: flex;
+      flex-direction: column;
+      align-content: space-between;
+     align-items: center;
+      width: 100%;
+      padding: 1rem 1rem;
+    }
+    
+    .copyrightDiv {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    
+    .copyrightDiv p {
+      color: #c9c9c9;
+      font-family: Poppins;
+      font-size: 0.775rem;
+      font-style: normal;
+      font-weight: 300;
+    }
+  }
+  
+  
+  @media (max-width: 900px) {
+    footer {
+      background-color: rgb(0, 0, 0);
+      color: #ffff;
+      font-size: 62.5%;
+     
+    }
+    
+    .footersection2 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+  
+    .footerContactdiv1 {
+      display: flex;
+      flex-direction: column;
+     align-content: space-between;
+     align-items: center;
+      width: 70%;
+      margin-top: 1rem;
+    }
+    
+    .footerCard h3 {
+      font-family: Poppins;
+      font-size: .8rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 1.5rem;
+      text-align: center;
+    }
+    .footerCard p {
+      font-family: Poppins;
+      font-size: 0.7rem;
+      font-style: normal;
+      font-weight: 400;
+    }
+    
+   
+    
+    .footerContactdiv2 {
+      display: flex;
+  
+      flex-direction: column;
+      align-content: space-between;
+      gap: 1rem;
+     align-items: center;
+      padding: 1rem 0rem;
+      width: 100%;
+      border-top: 1px solid #4F4F4F;
+      border-bottom: 1px solid #4F4F4F;
+    }
+    .paradiv {
+      width: 80%;
+    }
+    
+    .paradiv p {
+      color: #c9c9c9;
+      font-family: Poppins;
+      font-size: 0.9125rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.21875rem;
+    }
+    
+    .LinkDiv {
+     
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .LinkDiv h3 {
+      color: #fff;
+      font-family: Poppins;
+      font-size: 1.2rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 1rem; /* 100% */
+      text-align: center;
+      
+    }
+    
+    .LinkDiv  li {
+      color: #c9c9c9;
+      font-family: Poppins;
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.3125rem;
+      list-style: none;
+    }
+    
+    .footerContactdiv3 {
+      display: flex;
+      flex-direction: column;
+      align-content: space-between;
+     align-items: center;
+      width: 100%;
+      padding: 1rem 1rem;
+    }
+    
+    .copyrightDiv {
+      /* height: 100%; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    
+    .copyrightDiv p {
+      color: #c9c9c9;
+    
+      font-family: Poppins;
+      font-size: 0.775rem;
+      font-style: normal;
+      font-weight: 300;
+    }
+  }
+  
+  
+  @media only screen and (min-width: 600px) {}
+  
+  
+  @media only screen and (min-width: 768px) {}
+  
+  
+  @media only screen and (min-width: 992px) {}
+  
+  
+  @media only screen and (min-width: 1200px) {}
