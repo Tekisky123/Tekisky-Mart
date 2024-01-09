@@ -1,0 +1,339 @@
+.main-Aboutus{
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: url('../Images/bg-image.jpg');
+    background-position-x: 0;
+    background-position-y: 30%;
+}
+h2{
+    color: #231F20;
+
+text-align: center;
+font-family: Poppins;
+font-size: 36px;
+font-style: normal;
+font-weight: 600;
+line-height: 36px; /* 100% */
+}
+.aboutus{
+    width: 66%;
+    height: 276px;
+  
+    /* background-color: gray; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background: url('https://e7.pngegg.com/pngimages/94/856/png-clipart-black-and-white-textile-pattern-gray-background-border-texture-thumbnail.png'), lightgray 384px -186px / 60% 234.783% no-repeat; */
+}
+.home{
+    padding: 8px;
+    /* border: 2px solid black; */
+    border-radius: 15px;
+    /* margin-top: -1.3%; */
+    background-color: white;
+
+}
+.vid-data{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    margin-top: 5%;
+    height: 42%;
+    
+}
+.Data-img{
+    /* border: 2px solid black; */
+    width: 66%;
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+    justify-content: space-between;
+    
+    
+}
+.data{
+    width: 75%;
+}
+.video{
+    width: 66%;
+    margin-top: 4%;
+    display: flex;
+    justify-content: flex-end;
+
+}
+.review-slider{
+    height: 28em;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.available-main{
+    margin-top: 2%;
+    height: 28em;
+    /* border: 2px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 1px;
+    align-items: center;
+    background: #FFF;
+    
+}
+.Available-slider{
+    height: 50%;
+    width: 56%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.enquiry-main{
+    height: 10%;
+    width: 56%;
+    margin-left: 22%;
+    margin-top: -3%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    
+}
+.shipping{
+    height: 10em;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #D0EDFD;
+    border-radius: 10px;
+}
+.cod{
+    height: 10em;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+background: #FBECC5;
+}
+.Enquiry{
+    height: 10em;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+background: #FED0ED;
+}
+.available-img{
+    height: 70%;
+    width: 20%;
+
+}
+
+.Last-para{
+    height: 30em;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 1px;
+    align-items: center;
+    margin-top: 3%;
+}
+.cnt-btn{
+    padding: 9px 18px;
+    border-radius: 50px;
+background: #D5A455;
+color: white;
+border: none;
+}
+.logo-img{
+    height: 20%;
+    width: 25%;
+    margin-left: 0%;
+    filter: sepia(80%) saturate(100%) hue-rotate(200deg);
+    filter: invert(100%) sepia(120%) saturate(350%) ;
+    
+}
+
+
+
+/* mobile width */
+
+@media screen and (max-width:600px) {
+     .aboutus{
+        width: 100%;
+    }
+    .main-Aboutus{
+    background: url('../Images/bg-image.jpg');
+    background-position-x: 40%;
+    background-position-y: 10%;
+    } 
+    .Data-img{
+        
+        width: 100%;
+        display: block;
+       
+        justify-content: space-between;
+        
+        
+    }
+    .data{
+        width: 100%;
+        height: fit-content;
+    }
+    .logo-img{
+        height: 20%;
+        width: 80%;
+        margin-left: 10%;
+    }
+  
+
+    .video{
+        width: 90%;
+        margin-top: 8%;
+        display: flex;
+        justify-content: center;
+    
+    } 
+    .available-img{
+        height: 100%;
+        width: 30%;
+    
+    }
+    .Available-slider{
+        height: 50%;
+        width: 60%;
+       
+    }
+    .enquiry-main{
+        
+        width: 80%;
+        margin-left: 10%;
+        margin-top: -3%;
+  
+        
+    }
+
+}
+
+/* tablet width 1 */
+
+@media screen and (min-width:601px) and (max-width: 768px) {
+    .aboutus{
+        width: 100%;
+    }
+    .main-Aboutus{
+    background: url('../Images/bg-image.jpg');
+    background-image: 100%;
+    } 
+    .Data-img{
+        
+        width: 100%;
+        display: block;
+       
+        justify-content: space-between;
+        
+        
+    }
+    .data{
+        width: 100%;
+        height: fit-content;
+    }
+    .logo-img{
+        height: 20%;
+        width: 80%;
+        margin-left: 10%;
+    }
+  
+
+    .video{
+        width: 90%;
+        margin-top: 8%;
+        display: flex;
+        justify-content: center;
+    
+    } 
+    .available-img{
+        height: 100%;
+        width: 30%;
+    
+    }
+    .Available-slider{
+        height: 50%;
+        width: 60%;
+       
+    }
+    .enquiry-main{
+        
+        width: 80%;
+        margin-left: 10%;
+        margin-top: -3%;
+  
+        
+    }
+}
+
+/* for tablet width 2 */
+
+@media screen and (min-width:769px) and (max-width: 992px) {
+    .aboutus{
+        width: 100%;
+    }
+    .main-Aboutus{
+    background: url('../Images/bg-image.jpg');
+    background-image: 100%;
+    } 
+    .Data-img{
+        
+        width: 100%;
+        display: block;
+       
+        justify-content: space-between;
+        
+        
+    }
+    .data{
+        width: 100%;
+        height: fit-content;
+    }
+    .logo-img{
+        height: 10%;
+        width: 50%;
+        margin-left: 25%;
+        
+    }
+  
+
+    .video{
+        width: 90%;
+        margin-top: 8%;
+        display: flex;
+        justify-content: center;
+    
+    } 
+    .available-img{
+        height: 100%;
+        width: 30%;
+    
+    }
+    .Available-slider{
+        height: 50%;
+        width: 60%;
+       
+    }
+    .enquiry-main{
+        
+        width: 80%;
+        margin-left: 10%;
+        margin-top: -3%;
+  
+        
+    }
+}

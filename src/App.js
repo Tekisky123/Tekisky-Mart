@@ -1,3 +1,4 @@
+import AboutUs from "./Components/About us/AboutUs";
 import Carousel from "./Components/Carousel";
 import Header from "./Components/Header";
 
@@ -6,8 +7,9 @@ function App() {
   
   return (
     <div className="App">
-    <Header/>
-    <Carousel/>
+    {/* <Header/> */}
+    {/* <Carousel/> */}
+    <AboutUs/>
     </div>
   );
 }
