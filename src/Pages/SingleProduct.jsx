@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../Assets/Styles/SingleProduct.css";
 import "../Assets/Styles/Style.scss";
 import { Link, useParams } from "react-router-dom";
+import "../Assets/Styles/Style.scss";
 import {
   FaCartPlus,
   FaFacebook,
@@ -9,16 +10,35 @@ import {
   FaStar,
   FaStarHalfAlt,
 } from "react-icons/fa";
+import { FaMinus, FaPlus } from "react-icons/fa";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { Col, Row } from "react-bootstrap";
 import axios from "axios";
+import { Context } from "../Context/Context";
 
 const SingleProduct = () => {
   const [imgId, setImgId] = useState(1);
   const [loading, setLoading] = useState(true);
   const [productData, setProductData] = useState(null);
   const { id } = useParams();
+  const [quantity, setQuantity] = useState(1);
+  const { handleAddToCart } = useContext(Context);
+  const [selectedSize, setSelectedSize] = useState("250g");
+
+  const handleSizeChange = (event) => {
+    setSelectedSize(event.target.value);
+  };
+
+  const increment = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const decrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -147,11 +167,95 @@ const SingleProduct = () => {
                   <h2>About this item:</h2>
                   <p>{productData.description}</p>
                 </div>
+                <div>
+                  <form className="size-form">
+                    <label
+                      className={`size-label ${
+                        selectedSize === "250g" ? "selected" : ""
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="productSize"
+                        value="250g"
+                        checked={selectedSize === "250g"}
+                        onChange={handleSizeChange}
+                      />
+                      250g
+                    </label>
+                    <label
+                      className={`size-label ${
+                        selectedSize === "500g" ? "selected" : ""
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="productSize"
+                        value="500g"
+                        checked={selectedSize === "500g"}
+                        onChange={handleSizeChange}
+                      />
+                      500g
+                    </label>
+                    <label
+                      className={`size-label ${
+                        selectedSize === "1kg" ? "selected" : ""
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="productSize"
+                        value="1kg"
+                        checked={selectedSize === "1kg"}
+                        onChange={handleSizeChange}
+                      />
+                      1kg
+                    </label>
+                    <label
+                      className={`size-label ${
+                        selectedSize === "5kg" ? "selected" : ""
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="productSize"
+                        value="5kg"
+                        checked={selectedSize === "5kg"}
+                        onChange={handleSizeChange}
+                      />
+                      5kg
+                    </label>
+                  </form>
+                </div>
                 <div className="purchase-info">
-                  <input type="number" min="0" value="1" />
-                  <button type="button" className="btn">
+                  <div className="c-counter-btn">
+                    <span className="minus" onClick={decrement}>
+                      <FaMinus />
+                    </span>
+                    <span className="qty">{quantity}</span>
+                    <span className="plus" onClick={increment}>
+                      <FaPlus />
+                    </span>
+                  </div>
+                  {/* <button type="button" className="btn">
                     Add to Cart <FaCartPlus className="cart-icon" />
+                  </button> */}
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      handleAddToCart(productData, quantity);
+                      setQuantity(1);
+                    }}
+                  >
+                    <FaCartPlus /> ADD TO CART
                   </button>
+                </div>
+
+                <div>
+                  <button className="checkoutBtn">Proceed To Checkout</button>
+                </div>
+                <div>
+                  
                 </div>
                 <div className="social-links">
                   <p>Share At: </p>

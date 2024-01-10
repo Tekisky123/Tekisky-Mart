@@ -182,6 +182,7 @@ a {
   
 .header-icons {
     display: flex;
+    align-items: center;
     position: relative;
     max-width: 500px;
     left: 150px;

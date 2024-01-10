@@ -1,11 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { FaShoppingCart, FaHeart, FaUser } from "react-icons/fa";
 import { BiSolidSearchAlt2 } from "react-icons/bi";
 import "../Assets/Styles/Header.css";
 import logo from "../Assets/Images/main-logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Context } from "../Context/Context";
 
 const Header = () => {
+
+  // cartItems
+  const navigate=useNavigate()
+  const { cartItems } = useContext(Context);
   const primaryNavRef = useRef(null);
   const toggleButtonRef = useRef(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -62,9 +67,14 @@ const Header = () => {
             {/* Icons for Cart, Favorites, and Profile */}
             <div className="header-icons">
             <BiSolidSearchAlt2  className="header-icon" />
-              <FaShoppingCart className="header-icon cart-btn" > 
-              <span className="badge">5</span>
-              </FaShoppingCart>
+              {/* <FaShoppingCart className="header-icon cart-btn"  onClick={()=>navigate("/cart")}> 
+              <span className="badge">{cartItems.length}</span>
+              </FaShoppingCart> */}
+              <button className="header-icon cart-btn" onClick={()=>navigate('/cart')}>
+                <span>{cartItems.length}</span>
+                {/* <span>{cartCount}</span> */}
+                <FaShoppingCart />
+              </button>
               <FaHeart className="header-icon" />
               <FaUser className="header-icon" />
             </div>

@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Col, Row } from "react-bootstrap";
 import axios from "axios";
 import "../Assets/Styles/Products.css";
 import "../Assets/Styles/Style.scss";
 import { Navigate, useNavigate } from "react-router-dom";
+import { Context } from "../Context/Context";
 
 const Products = () => {
+  
+  const { handleAddToCart } = useContext(Context);
   const [products, setProducts] = useState([]);
+  const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate()
 
   const navigateToSingleProduct = (productId) => {
@@ -58,7 +62,12 @@ const Products = () => {
                     <div className="BestSellerDetails">
                       <h6>{products.productName}</h6>
                       <p>₹{parseFloat(products.offerPrice).toFixed(2)}</p>
-                      <button>Add to cart</button>
+                      
+                      <div className="buy-button">
+                  <button onClick={() => {handleAddToCart(products,quantity)
+                  }}>Add To Cart</button>
+                  <button>Buy Now</button>
+                </div>
                     </div>
                   </div>
                 </div>

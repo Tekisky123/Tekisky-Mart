@@ -8,6 +8,7 @@ import AboutUs from "./Pages/AboutUs";
 import Cart from "./Components/Cart";
 import Footer from "./Components/Footer";
 import ProductForm from "./Pages/ProductForm";
+import PaymentStep from "./Pages/PaymentStep";
 
 // app apps hello
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <Route path="/cart" element={<Cart/>}/>
       <Route path="/single-product/:id" element={<SingleProduct/>}/>
       <Route path="/product-form" element={<ProductForm/>}/>
+      <Route path="/payment_step" element={<PaymentStep/>}/>
 
     </Routes>
     <Footer/>

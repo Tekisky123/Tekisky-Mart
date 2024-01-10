@@ -16,6 +16,11 @@
                 .category{
                     height: 250px;
                     padding: 20px;
+                    transition: all 0.3s ease;
+                    &:hover {
+                      transform: scale(1.1);
+                      transition: all 0.3s ease;
+                    }
                     .subcategory{
                         border: 1px solid lightgray;
                         border-radius: 5px;
@@ -23,6 +28,7 @@
                         img{
                            width: 100%;
                            height: 200px;
+                           
                         }
 
                         p{
@@ -67,7 +73,7 @@
     .B-Saller{
         h3{
             text-align: center;
-            margin: 100px auto 30px auto;
+            margin: 40px auto 30px auto;
             font-weight: bold;
             // color: grey;
         }
@@ -75,58 +81,66 @@
             width: 90%;
             margin: auto;
             .row{
-                .Saller{
-                    height: 380px;
-                    padding: 20px;
-                    .subSaller{
-                        border: 1px solid lightgray;
-                        border-radius: 5px;
-
-                        img{
-                           width: 100%;
-                           height: 200px;
+                div{
+                    .Saller{
+                        height: 380px;
+                        padding: 20px;
+                        transition: all 0.3s ease;
+                        &:hover {
+                          transform: scale(1.1);
+                          transition: all 0.3s ease;
                         }
-
-                        p{
-                            height: 30px;
-                            margin-top: 15px;
-                            text-align: center;
-                            font-weight: bold;
-                            // color: grey;
-                        }
-                        .BestSellerDetails{
-                            padding: 10px;
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            justify-content: center;
-
-                            h6{
-                                font-size: 17px;
-                                font-weight: bold;
-                            }
-
-                            p{
-                             font-weight: bold;
-                             margin-top: 0px;
-                            }
-                            .buy-button{
-                                display: flex;
-                                gap: 10px;
-                                button{
-                                    border: none;
-                                    color: #fff;
-                                    padding: 10px;
-                                    border-radius: 5px;
-                                    background: #D5A455;
-                                    width: 106.64px;
+                        .subSaller{
+                            border: 1px solid lightgray;
+                            border-radius: 5px;
     
-                                }
+                            img{
+                               width: 100%;
+                               height: 200px;
                             }
-                   
+    
+                            p{
+                                height: 30px;
+                                margin-top: 15px;
+                                text-align: center;
+                                font-weight: bold;
+                                // color: grey;
+                            }
+                            .BestSellerDetails{
+                                padding: 10px;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: center;
+    
+                                h6{
+                                    font-size: 17px;
+                                    font-weight: bold;
+                                }
+    
+                                p{
+                                 font-weight: bold;
+                                 margin-top: 0px;
+                                }
+                                .buy-button{
+                                    display: flex;
+                                    gap: 10px;
+                                    button{
+                                        border: none;
+                                        color: #fff;
+                                        padding: 10px;
+                                        border-radius: 5px;
+                                        background: #D5A455;
+                                        width: 106.64px;
+        
+                                    }
+                                }
+                       
+                            }
                         }
                     }
                 }
+               
             }
         }
     }
@@ -134,7 +148,9 @@
     .c-tesimonals{
         h3{
             text-align: center;
-            margin: 60px auto;
+            // margin: 60px auto;
+            margin-top: 70px;
+            margin-bottom: 40px;
             font-weight: bold;
             // color: grey;
         }
@@ -145,6 +161,11 @@
                 .tesimonals{
                     height: 250px;
                     padding: 20px;
+                    transition: all 0.3s ease;
+                    &:hover {
+                      transform: scale(1.1);
+                      transition: all 0.3s ease;
+                    }
                     .subtesimonals{
                         border: 1px solid lightgray;
                         border-radius: 5px;
@@ -214,6 +235,11 @@
                 .Saller{
                     height: 380px;
                     // padding: 8px;
+                    transition: all 0.3s ease;
+                    &:hover {
+                      transform: scale(1.1);
+                      transition: all 0.3s ease;
+                    }
                     .subSaller{
                         border: 1px solid lightgray;
                         border-radius: 5px;
@@ -265,3 +291,130 @@
 }
 
 
+
+.cx-cart {
+    .cart-item-wrapper {
+      max-height: 50vh;
+      overflow-y: auto;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+      &:hover {
+        transform: scale(1.1);
+        transition: all 0.3s ease;
+      }
+      .item-wrapper {
+        margin-bottom: 10px;
+        padding: 15px;
+        background-color: antiquewhite;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .p-img {
+          width: 10%;
+          img {
+            height: 70px;
+          }
+        }
+        .p-name {
+          width: 20%;
+          p {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-weight: 600;
+          }
+        }
+        .p-counter {
+          .qty {
+            display: inline-flex;
+            align-items: center;
+            height: 40px;
+            padding: 0 10px;
+            border: 1px solid gray;
+            margin: 0 10px;
+          }
+          .minus {
+            cursor: pointer;
+          }
+          .plus {
+            cursor: pointer;
+          }
+        }
+        .p-price {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  
+  .item-total {
+    margin-top: 20px;
+    h4 {
+      font-weight: 600;
+  
+      color: gray;
+      span {
+        color: #000;
+      }
+    }
+  }
+  
+  .cart-btn {
+    position: relative;
+    border: none;
+    background-color: #fff;
+    span {
+      position: absolute;
+      right: -10px;
+      display: inline-flex;
+      height: 20px;
+      width: 20px;
+      font-weight: 500;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      background-color: red;
+      color: #fff;
+      font-size: 10px;
+    }
+  }
+
+
+  .c-counter-btn {
+    margin-right: 15px;
+    height: 40px;
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    .minus {
+      cursor: pointer;
+      padding-right: 10px;
+      margin-right: 10px;
+      border-right: 1px solid gray;
+      padding-left: 10px;
+    }
+    .plus {
+      cursor: pointer;
+
+      padding-left: 10px;
+      margin-left: 10px;
+      border-left: 1px solid gray;
+      padding-right: 10px;
+    }
+    .qty {
+      font-weight: 600;
+    }
+  }
+.first-image-container {
+    background-image: url(../Images//headerbg2.jpg);
+    height: 500px;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .first-container-heading {
+    font-size: 60px;
+    position: relative;
+    top: 40px;
+  }

@@ -24,12 +24,12 @@ const decrement = () => {
     () => {
       let subTotal = 0;
       cartItems.map(
-        item => (subTotal += item.attributes.price * item.attributes.quantity)
+        item => (subTotal += item.mrp * item.availablePackQty[0])
       );
       setCartSubToatal(subTotal);
 
       let count = 0;
-      cartItems.map(item => (count += item.attributes.quantity));
+      cartItems.map(item => (count += item.availablePackQty[0]));
       setCartCount(count);
     },
     [cartItems]
@@ -40,21 +40,23 @@ const decrement = () => {
     let index = items.findIndex(p => p.id === product.id);
 
     if (index !== -1) {
-      items[index].attributes.quantity += quantity;
+      items[index].availablePackQty[0] += quantity;
     } else {
-      product.attributes.quantity = quantity;
+      product.availablePackQty[0] = quantity;
       items = [...items, product];
     }
 
     setCartItems(items);
   };
+  console.log("cartItems",cartItems)
 
-  console.log(cartItems);
+
   const handleRemoveFromCart = product => {
     let items = [...cartItems];
     items = items.filter(p => p.id !== product.id);
 
     setCartItems(items);
+    localStorage.setItem("cartItems", items);
   };
 
   const handleCartProductQuantity = (type, product) => {
@@ -62,10 +64,10 @@ const decrement = () => {
     let index = items.findIndex(p => p.id === product.id);
 
     if (type === "inc") {
-      items[index].attributes.quantity += 1;
+      items[index].availablePackQty[0] += 1;
     } else if (type === "dec") {
-      if (items[index].attributes.quantity === 1) return;
-      items[index].attributes.quantity -= 1;
+      if (items[index].availablePackQty[0] === 1) return;
+      items[index].availablePackQty[0] -= 1;
     }
     setCartItems(items);
   };
