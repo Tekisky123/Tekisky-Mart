@@ -34,9 +34,47 @@ const AboutUs = () => {
       </div>
 
       {/* reviewe slider */}
+      <div className='review-slider'>
+     <h2>testimonial</h2>
 
-      
+      <div class="scroller-container">
 
+        <div className='aaa'>
+  <div class="review-box">
+    <div class="user-name">John Doe</div>
+    <div class="rating">★★★★★</div>
+    <div class="comment">Great product! I'm very satisfied with my purchase.</div>
+  </div>
+  
+  <div class="review-box">
+    <div class="user-name">Jane Smith</div>
+    <div class="rating">★★★☆☆</div>
+    <div class="comment">The product is good, but there's room for improvement.</div>
+  </div>
+
+  <div class="review-box">
+    <div class="user-name">Jane Smith</div>
+    <div class="rating">★★★☆☆</div>
+    <div class="comment">The product is good, but there's room for improvement.</div>
+  </div>
+
+  <div class="review-box">
+    <div class="user-name">Jane Smith</div>
+    <div class="rating">★★★☆☆</div>
+    <div class="comment">The product is good, but there's room for improvement.</div>
+  </div>
+
+  <div class="review-box">
+    <div class="user-name">Jane Smith</div>
+    <div class="rating">★★★☆☆</div>
+    <div class="comment">The product is good, but there's room for improvement.</div>
+  </div>
+
+  
+  
+</div>
+</div>
+</div>
       {/* slider for  available at */}
       <div className='available-main'>
         <h2>Available at</h2>
