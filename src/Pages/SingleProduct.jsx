@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "../Assets/Styles/SingleProduct.css";
 import "../Assets/Styles/Style.scss";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "../Assets/Styles/Style.scss";
 import {
   FaCartPlus,
@@ -25,6 +25,7 @@ const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
   const { handleAddToCart } = useContext(Context);
   const [selectedSize, setSelectedSize] = useState("250g");
+  const navigate = useNavigate()
 
   const handleSizeChange = (event) => {
     setSelectedSize(event.target.value);
@@ -252,7 +253,7 @@ const SingleProduct = () => {
                 </div>
 
                 <div>
-                  <button className="checkoutBtn">Proceed To Checkout</button>
+                  <button className="checkoutBtn" onClick={()=>navigate('/payment_step')}>Proceed To Checkout</button>
                 </div>
                 <div>
                   
