@@ -9,6 +9,7 @@ import Cart from "./Components/Cart";
 import Footer from "./Components/Footer";
 import ProductForm from "./Pages/ProductForm";
 import PaymentStep from "./Pages/PaymentStep";
+import AddProductForm from "./Pages/AddProductForm";
 
 // app apps hello
 function App() {
@@ -26,6 +27,7 @@ function App() {
       <Route path="/single-product/:id" element={<SingleProduct/>}/>
       <Route path="/product-form" element={<ProductForm/>}/>
       <Route path="/payment_step" element={<PaymentStep/>}/>
+      <Route path="/add-products" element={<AddProductForm/>}/>
 
     </Routes>
     <Footer/>
