@@ -16,6 +16,7 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { Col, Row } from "react-bootstrap";
 import axios from "axios";
 import { Context } from "../Context/Context";
+import { Base_Url, getAllProductAPI } from "../apis/Apis";
 
 const SingleProduct = () => {
   const [imgId, setImgId] = useState(1);
@@ -23,9 +24,34 @@ const SingleProduct = () => {
   const [productData, setProductData] = useState(null);
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
-  const { handleAddToCart } = useContext(Context);
+  const [relatedProduct, setRelatedProduct] = useState([]);
+  const { handleAddToCart,ToastContainer } = useContext(Context);
   const [selectedSize, setSelectedSize] = useState("250g");
   const navigate = useNavigate()
+
+  const getRelatedProduct = async () => {
+    try {
+      const response = await axios.get(`${Base_Url}${getAllProductAPI}`);
+      const data = response.data;
+      if (data.success) {
+        setRelatedProduct(data.products);
+      } else {
+        // Handle error if needed
+        console.error('Error fetching data:', data.error);
+      }
+    } catch (error) {
+      // Handle network error
+      console.error('Network error:', error);
+    }
+  };
+
+  useEffect(() => {
+    getRelatedProduct();
+  }, []);
+
+  const navigateToSingleProduct = (productId) => {
+    navigate(`/single-product/${productId}`);
+  };
 
   const handleSizeChange = (event) => {
     setSelectedSize(event.target.value);
@@ -101,6 +127,7 @@ const SingleProduct = () => {
 
   return (
     <div className="single-main-container">
+    <ToastContainer/>
       {loading ? (
         <p>Loading...</p>
       ) : productData ? (
@@ -308,68 +335,28 @@ const SingleProduct = () => {
               <div className="B-Saller">
                 <h3>Related products</h3>
                 <div className="mainSaller">
-                  <Row>
-                    <Col xs={12} md={6} xl={3}>
-                      <div className="Saller">
-                        <div className="subSaller">
-                          <img
-                            src="https://grocerkid.com/wp-content/uploads/2021/10/kimia-dates.jpg"
-                            alt=""
-                          />
-                          <div className="BestSellerDetails">
-                            <h6>Kimia Dates</h6>
-                            <p>₹310.00</p>
-                            <button>Add to cart</button>
-                          </div>
-                        </div>
-                      </div>
-                    </Col>
-                    <Col xs={12} md={6} xl={3}>
-                      <div className="Saller">
-                        <div className="subSaller">
-                          <img
-                            src="https://grocerkid.com/wp-content/uploads/2021/10/kimia-dates.jpg"
-                            alt=""
-                          />
-                          <div className="BestSellerDetails">
-                            <h6>Kimia Dates</h6>
-                            <p>₹310.00</p>
-                            <button>Add to cart</button>
-                          </div>
-                        </div>
-                      </div>
-                    </Col>
-                    <Col xs={12} md={6} xl={3}>
-                      <div className="Saller">
-                        <div className="subSaller">
-                          <img
-                            src="https://grocerkid.com/wp-content/uploads/2021/10/kimia-dates.jpg"
-                            alt=""
-                          />
-                          <div className="BestSellerDetails">
-                            <h6>Kimia Dates</h6>
-                            <p>₹310.00</p>
-                            <button>Add to cart</button>
-                          </div>
-                        </div>
-                      </div>
-                    </Col>
-                    <Col xs={12} md={6} xl={3}>
-                      <div className="Saller">
-                        <div className="subSaller">
-                          <img
-                            src="https://grocerkid.com/wp-content/uploads/2021/10/kimia-dates.jpg"
-                            alt=""
-                          />
-                          <div className="BestSellerDetails">
-                            <h6>Kimia Dates</h6>
-                            <p>₹310.00</p>
-                            <button>Add to cart</button>
-                          </div>
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
+                <Row>
+            {relatedProduct.map((product) => (
+        <Col key={product._id} xs={12} md={6} xl={3}>
+          <div className="Saller" >
+            <div className="subSaller">
+              <img src={product.imageURL[0]} alt={product.productName} onClick={() => navigateToSingleProduct(product._id)}/>
+              <div className="BestSellerDetails">
+                <h6>{product.productName}</h6>
+                <p>₹{product.offerPrice}</p>
+                <div className="buy-button">
+                  <button onClick={() => {handleAddToCart(product,quantity)
+                  }}>Add To Cart</button>
+                  <button>Buy Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Col>
+      ))}
+           
+
+          </Row>
                 </div>
               </div>
             </div>
