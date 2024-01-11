@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Amatic+SC:wght@700&family=Exo+2:ital,wght@0,400;1,400;1,500&family=Poppins:wght@300;800&family=Teko:wght@300&family=Work+Sans:wght@500&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Exo 2", sans-serif;
+}
+
+.header-main-container {
+  /* border: 1px solid red; */
+  position: relative;
+}
+
+.header-top {
+  /* border: 1px solid green; */
+  display: flex;
+  /* height:  */
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #fff;
+  padding: 13px 20px;
+  /* width: 100vw; */
+}
+
+.header-bottom {
+  /* display: flex; */
+  height: 55px;
+  /* background: linear-gradient(90deg, #ECA5B2, #FBC852); */
+  background: url(../Images//nav-color.png), no-repeat;
+
+  background-size: cover;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding: 3px 0px;
+}
+
+li {
+  /* margin: 0px 56px; */
+  color: #fff;
+  display: flex;
+  width: 160px;
+  height: 46.8px;
+  padding: 13px 29.666px 13px 30px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 25px; /* 142.857% */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+li:hover {
+  /* padding: 20px; */
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  
+}
+
+.nav-link {
+  /* font-family: "Poppins", Sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px; */
+}
+
+.header-logo {
+  width: 200px;
+}
+
+.header-icons {
+  display: flex;
+  /* position: relative; */
+  /* max-width: 500px; */
+  /* left: 150px;
+  top: 1px; */
+  justify-content: center;
+  gap: 50px;
+}
+
+.header-icon {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.nav-contact{
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-number{
+  margin-right: 10px;
+  font-size: 14px;
+}
