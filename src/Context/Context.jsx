@@ -1,4 +1,6 @@
 import { createContext, useEffect, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 export const Context = createContext();
 
@@ -36,18 +38,31 @@ const decrement = () => {
   );
 
   const handleAddToCart = (product, quantity) => {
-    let items = [...cartItems];
-    let index = items.findIndex(p => p.id === product.id);
+  let items = [...cartItems];
+  let index = items.findIndex(p => p.id === product.id);
 
-    if (index !== -1) {
+  if (index !== -1) {
+    // Check if availablePackQty is an array before accessing its first element
+    if (Array.isArray(items[index].availablePackQty)) {
       items[index].availablePackQty[0] += quantity;
     } else {
-      product.availablePackQty[0] = quantity;
-      items = [...items, product];
+      // If not an array, create an array and set the first element
+      items[index].availablePackQty = [quantity];
     }
+  } else {
+    // Check if availablePackQty is an array before accessing its first element
+    if (Array.isArray(product.availablePackQty)) {
+      product.availablePackQty[0] = quantity;
+    } else {
+      // If not an array, create an array and set the first element
+      product.availablePackQty = [quantity];
+    }
+    items = [...items, product];
+  }
+  toast.success(`${product.productName} has been added to your cart`);
+  setCartItems(items);
+};
 
-    setCartItems(items);
-  };
   console.log("cartItems",cartItems)
 
 
@@ -75,6 +90,8 @@ const decrement = () => {
   return (
     <Context.Provider
       value={{
+        toast,
+        ToastContainer,
         products,
         setProducts,
         categories,

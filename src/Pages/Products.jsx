@@ -53,9 +53,10 @@ const Products = () => {
           <Row>
             {products.map((products) => (
               <Col key={products._id} xs={12} md={6} xl={3}>
-                <div className="Saller"  onClick={() => navigateToSingleProduct(products._id)}>
+                <div className="Saller"  >
                   <div className="subSaller">
                     <img
+                    onClick={() => navigateToSingleProduct(products._id)}
                       src={products.imageURL[0]}
                       alt={products.productName}
                     />

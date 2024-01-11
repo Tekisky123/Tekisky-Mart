@@ -17,7 +17,7 @@ import { Context } from "../Context/Context";
 
 const Home = () => {
 
-  const { handleAddToCart } = useContext(Context);
+  const { handleAddToCart ,ToastContainer, toast} = useContext(Context);
   const navigate=useNavigate()
   const [bestSellers, setBestSellers] = useState([]);
   const [quantity, setQuantity] = useState(1);
@@ -48,6 +48,7 @@ const Home = () => {
 
   return (
     <div className="cx-Home">
+    <ToastContainer />
       <OurCarousel />
       <div className="P-category">
         <h3>Product Categories</h3>
@@ -109,7 +110,7 @@ const Home = () => {
       </div>
 
 
-      <div className="c-tesimonals">
+      {/* <div className="c-tesimonals">
       <h3>Offers</h3>
       <div className="main-tesimonals">
       <Row>
@@ -167,7 +168,7 @@ const Home = () => {
 
           </Row>
       </div>
-    </div>
+    </div> */}
 
 
       <div className="B-Saller">
@@ -176,9 +177,9 @@ const Home = () => {
           <Row>
             {bestSellers.map((product) => (
         <Col key={product._id} xs={12} md={6} xl={3}>
-          <div className="Saller" onClick={() => navigateToSingleProduct(product._id)}>
+          <div className="Saller" >
             <div className="subSaller">
-              <img src={product.imageURL[0]} alt={product.productName} />
+              <img src={product.imageURL[0]} alt={product.productName} onClick={() => navigateToSingleProduct(product._id)}/>
               <div className="BestSellerDetails">
                 <h6>{product.productName}</h6>
                 <p>₹{product.offerPrice}</p>
