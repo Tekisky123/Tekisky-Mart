@@ -56,24 +56,27 @@ const SingleProduct = () => {
   const handleSizeChange = (event) => {
     const newSize = event.target.value;
     setSelectedSize(newSize);
-
+  
     // Find the selected size data in the productData
     const selectedSizeData = productData.packetweight
       .split(",")
       .find((size) => size === newSize);
-
-    // Update productData with the selected size data
+  
     if (selectedSizeData) {
       const sizeDataArray = selectedSizeData.split("|");
       const [mrp, offerPrice] = sizeDataArray.slice(1); // Assuming the format is "weight|mrp|offerPrice"
-
+  
+      // Set the selected size data without affecting the original values
       setProductData((prevData) => ({
         ...prevData,
-        mrp,
-        offerPrice,
+        selectedSize: {
+          mrp: mrp, // replace with the actual initial value
+          offerPrice: offerPrice || 0, // replace with a default value or adjust as needed
+        },
       }));
     }
   };
+  
 
   const increment = () => {
     setQuantity(quantity + 1);
@@ -143,6 +146,9 @@ const SingleProduct = () => {
       clearInterval(intervalId);
     };
   }, [imgId, productData]); // Include productData in the dependency array
+
+
+  
 
   return (
     <div className="single-main-container">

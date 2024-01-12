@@ -61,7 +61,7 @@ const AddProductForm = () => {
 
       // Make a POST request to your API endpoint with formData
       const response = await axios.post(
-        "http://localhost:8000/admin/addproduct",
+        "https://tekisky-mart.onrender.com/admin/addproduct",
         formDataToSubmit,
         {
           headers: {
@@ -123,7 +123,19 @@ const AddProductForm = () => {
           </select>
         </div>
 
-       
+        {/* <div className="form-group">
+          <label>
+            Product ID: <span className="required">*</span>
+          </label>
+          <input
+            type="text"
+            name="productId"
+            value={formData.productId}
+            onChange={handleInputChange}
+            required
+            maxLength="50"
+          />
+        </div> */}
 
         <div className="form-group">
           <label>
@@ -315,40 +327,35 @@ const AddProductForm = () => {
         </div>
 
         <div className="upload__box">
-          <div className="upload__btn-box">
-            <label className="upload__btn">
-              <p>Upload images</p>
-              <input
-                type="file"
-                name="files"
-                multiple
-                data-max_length="20"
-                className="upload__inputfile"
-                onChange={handleFilesChange}
-              />
-            </label>
-          </div>
+  <div className="upload__btn-box">
+    <label className="upload__btn">
+      <p>Upload images</p>
+      <input
+        type="file"
+        name="files"
+        multiple
+        data-max_length="20"
+        className="upload__inputfile"
+        onChange={handleFilesChange}
+      />
+    </label>
+  </div>
 
-          {/* <div className="upload__img-wrap">
-            {files.map((image, index) => (
-              <div key={index} className="upload__img-box">
-                <div
-                  style={{
-                    backgroundImage: `url(${URL.createObjectURL(image)})`,
-                  }}
-                  data-number={index}
-                  data-file={image.name}
-                  className="img-bg"
-                >
-                  <div
-                    className="upload__img-close"
-                    onClick={() => handleImgClose(image)}
-                  ></div>
-                </div>
-              </div>
-            ))}
-          </div> */}
-        </div>
+  <div className="upload__img-wrap">
+    {formData.files && formData.files.length > 0 && formData.files.map((image, index) => (
+      <div key={index} className="upload__img-box">
+        <div
+          style={{
+            backgroundImage: `url(${URL.createObjectURL(image)})`,
+          }}
+          data-number={index}
+          data-file={image.name}
+          className="img-bg"
+        ></div>
+      </div>
+    ))}
+  </div>
+</div>
 
         <div className="form-group">
           <button type="submit">Add Product</button>
