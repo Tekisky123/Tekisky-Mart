@@ -207,7 +207,7 @@ const SingleProduct = () => {
                 </div>
                 <div className="product-price">
                   <p className="last-price">
-                    MRP Price: <span>₹{productData.mrp}</span>
+                    MRP Price: <span>₹{productData.productDetails[0]?.mrp}</span>
                   </p>
                   <p className="new-price">
                     Offer Price:{" "}
@@ -222,8 +222,8 @@ const SingleProduct = () => {
                 </div>
                 <div>
                   <form className="size-form">
-                    {productData.packetweight &&
-                      productData.packetweight
+                    {productData.productDetails[0]?.packetweight &&
+                      productData.productDetails[0]?.packetweight
                         .split(",")
                         .map((weight, index) => (
                           <label
