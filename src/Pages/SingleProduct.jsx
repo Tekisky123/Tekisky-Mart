@@ -26,7 +26,7 @@ const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
   const [relatedProduct, setRelatedProduct] = useState([]);
   const { handleAddToCart, ToastContainer } = useContext(Context);
-  const [selectedSize, setSelectedSize] = useState("250g");
+  const [selectedSize, setSelectedSize] = useState("");
   const navigate = useNavigate();
 
   const getRelatedProduct = async () => {
@@ -56,27 +56,22 @@ const SingleProduct = () => {
   const handleSizeChange = (event) => {
     const newSize = event.target.value;
     setSelectedSize(newSize);
-  
-    // Find the selected size data in the productData
-    const selectedSizeData = productData.packetweight
-      .split(",")
-      .find((size) => size === newSize);
-  
+
+    const selectedSizeData = productData?.productDetails.find(
+      (details) => details.packetweight === newSize
+    );
+
     if (selectedSizeData) {
-      const sizeDataArray = selectedSizeData.split("|");
-      const [mrp, offerPrice] = sizeDataArray.slice(1); // Assuming the format is "weight|mrp|offerPrice"
-  
-      // Set the selected size data without affecting the original values
+      const { mrp, offerPrice } = selectedSizeData;
       setProductData((prevData) => ({
         ...prevData,
         selectedSize: {
-          mrp: mrp, // replace with the actual initial value
-          offerPrice: offerPrice || 0, // replace with a default value or adjust as needed
+          mrp: mrp,
+          offerPrice: offerPrice || 0,
         },
       }));
     }
   };
-  
 
   const increment = () => {
     setQuantity(quantity + 1);
@@ -88,33 +83,33 @@ const SingleProduct = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://tekisky-mart.onrender.com/admin/getoneproduct/${id}`
-        );
-        setProductData(response.data.getOneProduact);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-        // Handle error, e.g., redirect to an error page or display an error message
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `https://tekisky-mart.onrender.com/admin/getoneproduct/${id}`
+      );
+      setProductData(response.data.getOneProduact);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+      // Handle error, e.g., redirect to an error page or display an error message
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, [id]);
-
+ 
   useEffect(() => {
     const imgs = document.querySelectorAll(".img-select a");
     const imgBtns = [...imgs];
-
+  
     const intervalId = setInterval(() => {
       setImgId((prevId) => (prevId % imgBtns.length) + 1);
       slideImage();
     }, 3000);
-
+  
     imgBtns.forEach((imgItem) => {
       imgItem.addEventListener("click", (event) => {
         event.preventDefault();
@@ -123,10 +118,10 @@ const SingleProduct = () => {
         slideImage();
       });
     });
-
+  
     function slideImage() {
       const imgShowcase = document.querySelector(".img-showcase");
-
+  
       if (imgShowcase && imgShowcase.firstElementChild) {
         const displayWidth = imgShowcase.firstElementChild.clientWidth;
         imgShowcase.style.transform = `translateX(${
@@ -134,19 +129,42 @@ const SingleProduct = () => {
         }px)`;
       }
     }
-
+  
     window.addEventListener("resize", slideImage);
-
+  
     return () => {
       imgBtns.forEach((imgItem) => {
         imgItem.removeEventListener("click", () => {});
       });
-
+  
       window.removeEventListener("resize", slideImage);
       clearInterval(intervalId);
     };
-  }, [imgId, productData]); // Include productData in the dependency array
-
+  }, [imgId]);
+  
+  // Use a separate useEffect for setting the default size
+  useEffect(() => {
+    if (productData && !selectedSize) {
+      const defaultSize = productData.productDetails[0]?.packetweight || "";
+      setSelectedSize(defaultSize);
+  
+      const defaultSizeData = productData.productDetails.find(
+        (details) => details.packetweight === defaultSize
+      );
+  
+      if (defaultSizeData) {
+        const { mrp, offerPrice } = defaultSizeData;
+        setProductData((prevData) => ({
+          ...prevData,
+          selectedSize: {
+            mrp: mrp,
+            offerPrice: offerPrice || 0,
+          },
+        }));
+      }
+    }
+  }, [productData, selectedSize]);
+  
 
   
 
@@ -207,12 +225,12 @@ const SingleProduct = () => {
                 </div>
                 <div className="product-price">
                   <p className="last-price">
-                    MRP Price: <span>₹{productData.productDetails[0]?.mrp}</span>
+                    MRP Price: <span>₹{productData.selectedSize?.mrp}</span>
                   </p>
                   <p className="new-price">
                     Offer Price:{" "}
                     <span>
-                    ₹{productData?.productDetails[0]?.offerPrice}
+                    ₹{productData.selectedSize?.offerPrice}
                     </span>
                   </p>
                 </div>
@@ -221,28 +239,26 @@ const SingleProduct = () => {
                   <p>{productData.description}</p>
                 </div>
                 <div>
-                  <form className="size-form">
-                    {productData.productDetails[0]?.packetweight &&
-                      productData.productDetails[0]?.packetweight
-                        .split(",")
-                        .map((weight, index) => (
-                          <label
-                            key={index}
-                            className={`size-label ${
-                              selectedSize === weight ? "selected" : ""
-                            }`}
-                          >
-                            <input
-                              type="radio"
-                              name="productSize"
-                              value={weight}
-                              checked={selectedSize === weight}
-                              onChange={handleSizeChange}
-                            />
-                            {`${weight}`}
-                          </label>
-                        ))}
-                  </form>
+                <form className="size-form">
+              {productData.productDetails.map((details, index) => (
+                <label
+                  key={index}
+                  className={`size-label ${
+                    selectedSize === details.packetweight ? "selected" : ""
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="productSize"
+                    value={details.packetweight}
+                    checked={selectedSize === details.packetweight}
+                    onChange={handleSizeChange}
+                  />
+                  {`${details.packetweight}`}
+                </label>
+              ))}
+            </form>
+
                 </div>
                 <div className="purchase-info">
                   <div className="c-counter-btn">
