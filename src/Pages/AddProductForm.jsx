@@ -2,33 +2,38 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../Assets/Styles/AddProductForm.css";
 import "../Assets/Styles/Style.scss";
+import { useNavigate } from "react-router-dom";
 
 const AddProductForm = () => {
-  // const [formDatas, setProducts] = useState([{}]);
-  // const [files, setFiles] = useState([])
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    productId: "",
     productCategory: "",
     productName: "",
     productType: "",
     productBrand: "",
     description: "",
-    availableStockQty: 0,
-    availablePackQty: 0,
-    packetweight: "",
-    mrp: 0,
-    offerPrice: "",
     createdby: "",
     manufactureDate: "",
     expiryDate: "",
+    productDetails: [
+      {
+        availableStockQty: 0,
+        availablePackQty: 0,
+        packetweight: "",
+        mrp: 0,
+        offerPrice: "",
+      },
+    ],
+    files: [],
   });
 
   const handleInputChange = (e) => {
-    const { name, type, value } = e.target;
+    const { name, type, value, files } = e.target;
 
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === "file" ? prevData[name] : value,
+      [name]: type === "file" ? Array.from(files) : value,
     }));
   };
 
@@ -37,7 +42,50 @@ const AddProductForm = () => {
 
     setFormData((prevData) => ({
       ...prevData,
-      [name]: files, // store all selected files in the state
+      [name]: Array.from(files),
+    }));
+  };
+
+  const handleProductDetailsChange = (index, field, fieldValue) => {
+    setFormData((prevData) => {
+      const updatedDetails = [...prevData.productDetails];
+      updatedDetails[index] = {
+        ...updatedDetails[index],
+        [field]: fieldValue,
+      };
+      return {
+        ...prevData,
+        productDetails: updatedDetails,
+      };
+    });
+  };
+  
+
+
+  const handleAddProduct = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      productDetails: [
+        ...prevData.productDetails,
+        {
+          availableStockQty: 0,
+          availablePackQty: 0,
+          packetweight: "",
+          mrp: 0,
+          offerPrice: "",
+        },
+      ],
+    }));
+  };
+
+  const handleDeleteProduct = (index) => {
+    const updatedProductDetails = [...formData.productDetails];
+
+    updatedProductDetails.splice(index, 1);
+
+    setFormData((prevData) => ({
+      ...prevData,
+      productDetails: updatedProductDetails,
     }));
   };
 
@@ -45,23 +93,44 @@ const AddProductForm = () => {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const formDataToSubmit = new FormData();
 
-      // Append all fields to the formData
-      Object.entries(formData).forEach(([key, value]) => {
-        if (key === "files") {
-          // Append each file individually
-          for (let i = 0; i < value.length; i++) {
-            formDataToSubmit.append("files", value[i]);
-          }
-        } else {
-          formDataToSubmit.append(key, value);
-        }
+      formDataToSubmit.append("productCategory", formData.productCategory);
+      formDataToSubmit.append("productName", formData.productName);
+      formDataToSubmit.append("productType", formData.productType);
+      formDataToSubmit.append("productBrand", formData.productBrand);
+      formDataToSubmit.append("description", formData.description);
+      formDataToSubmit.append("createdby", formData.createdby);
+      formDataToSubmit.append("manufactureDate", formData.manufactureDate);
+      formDataToSubmit.append("expiryDate", formData.expiryDate);
+
+      formData.productDetails.forEach((detail, index) => {
+        formDataToSubmit.append(
+          `productDetails[${index}][availablePackQty]`,
+          detail.availablePackQty
+        );
+        formDataToSubmit.append(
+          `productDetails[${index}][availableStockQty]`,
+          detail.availableStockQty
+        );
+        formDataToSubmit.append(`productDetails[${index}][mrp]`, detail.mrp);
+        formDataToSubmit.append(
+          `productDetails[${index}][offerPrice]`,
+          detail.offerPrice
+        );
+        formDataToSubmit.append(
+          `productDetails[${index}][packetweight]`,
+          detail.packetweight
+        );
       });
 
-      // Make a POST request to your API endpoint with formData
+      formData.files.forEach((file) => {
+        formDataToSubmit.append("files", file);
+      });
+
       const response = await axios.post(
-        "https://tekisky-mart.onrender.com/admin/addproduct",
+        "https://tekisky-mart.onrender.com/admin/addProduct",
         formDataToSubmit,
         {
           headers: {
@@ -70,38 +139,49 @@ const AddProductForm = () => {
         }
       );
 
-      // Handle the response
       console.log("Server Response:", response.data);
 
-      // Reset the form after successful submission
       setFormData({
-        productId: "",
         productCategory: "",
         productName: "",
         productType: "",
         productBrand: "",
         description: "",
-        availableStockQty: 0,
-        availablePackQty: 0,
-        packetweight: "",
-        mrp: 0,
-        offerPrice: "",
         createdby: "",
         manufactureDate: "",
         expiryDate: "",
-        files: [], // reset the files array
+        productDetails: [
+          {
+            availableStockQty: 0,
+            availablePackQty: 0,
+            packetweight: "",
+            mrp: 0,
+            offerPrice: "",
+          },
+        ],
+        files: [],
       });
+      navigate("/");
     } catch (error) {
-      // Handle errors
-      console.error("Error submitting form:", error.message);
-      // ... rest of the error handling
+      console.error("Error submitting form:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  console.log("formdata", formData);
-
   return (
     <div className="form-container">
+      {loading && (
+        <div className="loader-container">
+          <div className="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>
@@ -164,9 +244,11 @@ const AddProductForm = () => {
             <option value="" disabled>
               Select Product type
             </option>
-            <option value="Mobile">Mobile</option>
-            <option value="Laptop">Laptop</option>
-            <option value="Tablet">Tablet</option>
+            <option value="Safawi">Safawi</option>
+            <option value="Sukkari">Sukkari</option>
+            <option value="Ajwa">Ajwa</option>
+            <option value="Amber">Amber</option>
+            <option value="Mabroom">Mabroom</option>
           </select>
         </div>
 
@@ -198,93 +280,126 @@ const AddProductForm = () => {
         </div>
 
         {/* {formDatas.map((formData, index) => ( */}
-        <div className="add-formData-container">
-          <div className="form-group">
-            <label>
-              Available Stock Quantity: <span className="required">*</span>
-            </label>
-            <input
-              type="number"
-              name="availableStockQty"
-              value={formData.availableStockQty}
-              onChange={handleInputChange}
-              required
-              min="0"
-            />
-          </div>
+        {formData.productDetails.map((detail, index) => (
+          <div key={index} className="add-formData-container">
+            <div className="form-group">
+              <label>
+                Available Stock Quantity: <span className="required">*</span>
+              </label>
+              <input
+                type="number"
+                name={`productDetails[${index}][availableStockQty]`}
+                value={detail.availableStockQty}
+                onChange={(e) =>
+                  handleProductDetailsChange(
+                    index,
+                    "availableStockQty",
+                    e.target.value
+                  )
+                }
+                required
+                min="0"
+              />
+            </div>
 
-          <div className="form-group">
-            <label>
-              Packet Weight: <span className="required">*</span>
-            </label>
+            <div className="form-group">
+              <label>
+                Packet Weight: <span className="required">*</span>
+              </label>
+              <select
+                name={`productDetails[${index}][packetweight]`}
+                value={detail.packetweight}
+                onChange={(e) =>
+                  handleProductDetailsChange(
+                    index,
+                    "packetweight",
+                    e.target.value
+                  )
+                }
+                required
+              >
+                <option value="">Select Packet Weight</option>
+                <option value="250g">250g</option>
+                <option value="500g">500g</option>
+                <option value="1kg">1kg</option>
+                <option value="5kg">5kg</option>
+              </select>
+            </div>
 
-            <select
-              name="packetweight"
-              value={formData.packetweight}
-              onChange={handleInputChange}
-              required
+            <div className="form-group">
+              <label>
+                Available Pack Quantity: <span className="required">*</span>
+              </label>
+              <select
+                name={`productDetails[${index}][availablePackQty]`}
+                value={detail.availablePackQty}
+                onChange={(e) =>
+                  handleProductDetailsChange(
+                    index,
+                    "availablePackQty",
+                    e.target.value
+                  )
+                }
+                required
+              >
+                <option value={1}>1</option>
+                <option value={3}>3</option>
+                <option value={5}>5</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>
+                MRP: <span className="required">*</span>
+              </label>
+              <input
+                type="number"
+                name={`productDetails[${index}][mrp]`}
+                value={detail.mrp}
+                onChange={(e) =>
+                  handleProductDetailsChange(
+                    index,
+                    "mrp",
+                    e.target.value
+                  )
+                }
+                required
+                min="0"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>
+                Offer Price: <span className="required">*</span>
+              </label>
+              <input
+                type="number"
+                name={`productDetails[${index}][offerPrice]`}
+                value={detail.offerPrice}
+                onChange={(e) =>
+                  handleProductDetailsChange(
+                    index,
+                    "offerPrice",
+                    e.target.value
+                  )
+                }
+                required
+                min="0"
+              />
+            </div>
+
+            <button
+              type="button"
+              className="delete"
+              onClick={() => handleDeleteProduct(index)}
             >
-              <option value="">Select Packet Weight</option>
-              <option value="250g">250g</option>
-              <option value="500g">500g</option>
-              <option value="1kg">1kg</option>
-              <option value="5kg">5kg</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>
-              Available Pack Quantity: <span className="required">*</span>
-            </label>
-            <select
-              name="availablePackQty"
-              value={formData.availablePackQty}
-              onChange={handleInputChange}
-              required
-            >
-              <option value={1}>1</option>
-              <option value={3}>3</option>
-              <option value={5}>5</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label>
-              MRP: <span className="required">*</span>
-            </label>
-            <input
-              type="number"
-              name="mrp"
-              value={formData.mrp}
-              onChange={handleInputChange}
-              required
-              min="0"
-            />
-          </div>
-
-          <div className="form-group">
-            <label>
-              Offer Price: <span className="required">*</span>
-            </label>
-            <input
-              type="number"
-              name="offerPrice"
-              value={formData.offerPrice}
-              onChange={handleInputChange}
-              required
-              min="0"
-            />
-          </div>
-
-          {/* <button type="button" className="delete" onClick={() => handleDeleteProduct(index)}>
               Delete Product
-            </button> */}
-        </div>
-        {/* ))} */}
-
-        {/* <button type="button" className="add" onClick={handleAddProduct}>
-          Add Product
-        </button> */}
+            </button>
+          </div>
+        ))}
+        <button type="button" className="add" onClick={handleAddProduct}>
+          Add New
+        </button>
 
         <div className="form-group">
           <label>
@@ -327,38 +442,45 @@ const AddProductForm = () => {
         </div>
 
         <div className="upload__box">
-  <div className="upload__btn-box">
-    <label className="upload__btn">
-      <p>Upload images</p>
-      <input
-        type="file"
-        name="files"
-        multiple
-        data-max_length="20"
-        className="upload__inputfile"
-        onChange={handleFilesChange}
-      />
-    </label>
-  </div>
+          <div className="upload__btn-box">
+            <label className="upload__btn">
+              <p>Upload images</p>
+              <input
+                type="file"
+                name="files"
+                multiple
+                data-max_length="20"
+                className="upload__inputfile"
+                onChange={handleFilesChange}
+              />
+            </label>
+          </div>
 
-  <div className="upload__img-wrap">
-    {formData.files && formData.files.length > 0 && formData.files.map((image, index) => (
-      <div key={index} className="upload__img-box">
-        <div
-          style={{
-            backgroundImage: `url(${URL.createObjectURL(image)})`,
-          }}
-          data-number={index}
-          data-file={image.name}
-          className="img-bg"
-        ></div>
-      </div>
-    ))}
-  </div>
-</div>
+          {/* <div className="upload__img-wrap">
+            {files.map((image, index) => (
+              <div key={index} className="upload__img-box">
+                <div
+                  style={{
+                    backgroundImage: `url(${URL.createObjectURL(image)})`,
+                  }}
+                  data-number={index}
+                  data-file={image.name}
+                  className="img-bg"
+                >
+                  <div
+                    className="upload__img-close"
+                    onClick={() => handleImgClose(image)}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div> */}
+        </div>
 
         <div className="form-group">
-          <button type="submit">Add Product</button>
+          <button type="submit" disabled={loading}>
+            Add Product
+          </button>
         </div>
       </form>
     </div>
