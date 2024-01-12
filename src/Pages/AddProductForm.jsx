@@ -138,19 +138,7 @@ const AddProductForm = () => {
           </select>
         </div>
 
-        <div className="form-group">
-          <label>
-            Product ID: <span className="required">*</span>
-          </label>
-          <input
-            type="text"
-            name="productId"
-            value={formData.productId}
-            onChange={(e) => handleChange(e)}
-            required
-            maxLength="50"
-          />
-        </div>
+       
 
         <div className="form-group">
           <label>
