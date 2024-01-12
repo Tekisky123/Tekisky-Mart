@@ -481,7 +481,7 @@ const PaymentStep = () => {
                 </div> */}
                 <div className="p-price">
                   <span>{item.availablePackQty}</span> x{" "}
-                  <span>{item.mrp} &#8377;</span>
+                  <span>{item.offerPrice} &#8377;</span>
                 </div>
                 {/* <div className="remove-btn">
                   <button

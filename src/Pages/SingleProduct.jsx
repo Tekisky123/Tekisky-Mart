@@ -25,9 +25,9 @@ const SingleProduct = () => {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [relatedProduct, setRelatedProduct] = useState([]);
-  const { handleAddToCart,ToastContainer } = useContext(Context);
+  const { handleAddToCart, ToastContainer } = useContext(Context);
   const [selectedSize, setSelectedSize] = useState("250g");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const getRelatedProduct = async () => {
     try {
@@ -37,11 +37,11 @@ const SingleProduct = () => {
         setRelatedProduct(data.products);
       } else {
         // Handle error if needed
-        console.error('Error fetching data:', data.error);
+        console.error("Error fetching data:", data.error);
       }
     } catch (error) {
       // Handle network error
-      console.error('Network error:', error);
+      console.error("Network error:", error);
     }
   };
 
@@ -54,7 +54,25 @@ const SingleProduct = () => {
   };
 
   const handleSizeChange = (event) => {
-    setSelectedSize(event.target.value);
+    const newSize = event.target.value;
+    setSelectedSize(newSize);
+
+    // Find the selected size data in the productData
+    const selectedSizeData = productData.packetweight
+      .split(",")
+      .find((size) => size === newSize);
+
+    // Update productData with the selected size data
+    if (selectedSizeData) {
+      const sizeDataArray = selectedSizeData.split("|");
+      const [mrp, offerPrice] = sizeDataArray.slice(1); // Assuming the format is "weight|mrp|offerPrice"
+
+      setProductData((prevData) => ({
+        ...prevData,
+        mrp,
+        offerPrice,
+      }));
+    }
   };
 
   const increment = () => {
@@ -104,13 +122,14 @@ const SingleProduct = () => {
     });
 
     function slideImage() {
-      const displayWidth = document.querySelector(
-        ".img-showcase img:first-child"
-      ).clientWidth;
+      const imgShowcase = document.querySelector(".img-showcase");
 
-      document.querySelector(".img-showcase").style.transform = `translateX(${
-        -(imgId - 1) * displayWidth
-      }px)`;
+      if (imgShowcase && imgShowcase.firstElementChild) {
+        const displayWidth = imgShowcase.firstElementChild.clientWidth;
+        imgShowcase.style.transform = `translateX(${
+          -(imgId - 1) * displayWidth
+        }px)`;
+      }
     }
 
     window.addEventListener("resize", slideImage);
@@ -127,7 +146,7 @@ const SingleProduct = () => {
 
   return (
     <div className="single-main-container">
-    <ToastContainer/>
+      <ToastContainer />
       {loading ? (
         <p>Loading...</p>
       ) : productData ? (
@@ -182,10 +201,10 @@ const SingleProduct = () => {
                 </div>
                 <div className="product-price">
                   <p className="last-price">
-                    Old Price: <span>₹{productData.mrp}</span>
+                    MRP Price: <span>₹{productData.mrp}</span>
                   </p>
                   <p className="new-price">
-                    New Price:{" "}
+                    Offer Price:{" "}
                     <span>
                       ₹{productData.offerPrice} ({productData.discount}%)
                     </span>
@@ -197,62 +216,26 @@ const SingleProduct = () => {
                 </div>
                 <div>
                   <form className="size-form">
-                    <label
-                      className={`size-label ${
-                        selectedSize === "250g" ? "selected" : ""
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="productSize"
-                        value="250g"
-                        checked={selectedSize === "250g"}
-                        onChange={handleSizeChange}
-                      />
-                      250g
-                    </label>
-                    <label
-                      className={`size-label ${
-                        selectedSize === "500g" ? "selected" : ""
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="productSize"
-                        value="500g"
-                        checked={selectedSize === "500g"}
-                        onChange={handleSizeChange}
-                      />
-                      500g
-                    </label>
-                    <label
-                      className={`size-label ${
-                        selectedSize === "1kg" ? "selected" : ""
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="productSize"
-                        value="1kg"
-                        checked={selectedSize === "1kg"}
-                        onChange={handleSizeChange}
-                      />
-                      1kg
-                    </label>
-                    <label
-                      className={`size-label ${
-                        selectedSize === "5kg" ? "selected" : ""
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="productSize"
-                        value="5kg"
-                        checked={selectedSize === "5kg"}
-                        onChange={handleSizeChange}
-                      />
-                      5kg
-                    </label>
+                    {productData.packetweight &&
+                      productData.packetweight
+                        .split(",")
+                        .map((weight, index) => (
+                          <label
+                            key={index}
+                            className={`size-label ${
+                              selectedSize === weight ? "selected" : ""
+                            }`}
+                          >
+                            <input
+                              type="radio"
+                              name="productSize"
+                              value={weight}
+                              checked={selectedSize === weight}
+                              onChange={handleSizeChange}
+                            />
+                            {`${weight}`}
+                          </label>
+                        ))}
                   </form>
                 </div>
                 <div className="purchase-info">
@@ -280,11 +263,14 @@ const SingleProduct = () => {
                 </div>
 
                 <div>
-                  <button className="checkoutBtn" onClick={()=>navigate('/payment_step')}>Proceed To Checkout</button>
+                  <button
+                    className="checkoutBtn"
+                    onClick={() => navigate("/payment_step")}
+                  >
+                    Proceed To Checkout
+                  </button>
                 </div>
-                <div>
-                  
-                </div>
+                <div></div>
                 <div className="social-links">
                   <p>Share At: </p>
                   <Link>
@@ -310,53 +296,52 @@ const SingleProduct = () => {
             </div>
             <div className="data-container">
               <h2>Description</h2>
-              <p>{productData.description}</p>
+              {/* <p>{productData.description}</p> */}
               <ul>
-                <li>
-                  Dates are great energy boosters as they contain natural sugar
-                  like glucose, sucrose and fructose. To get more advantage add
-                  dates to milk and make it a very nutritious snack. Dates are
-                  very low in calories and are extremely suitable for
-                  health-conscious people.
-                </li>
-                <li>It helps improve the digestive system.</li>
-                <li>
-                  Dates are free from cholesterol and contain very low fat.
-                  Dates are rich in vitamins and minerals.
-                </li>
-                <li>
-                  Dates help in weight gain and are also high in antioxidants,
-                  which may contribute to many of their health benefits
-                </li>
-                <li>Pack contains: 250g | Best Before 12 Months</li>
+                {Array.isArray(productData.description) ? (
+                  productData.description.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))
+                ) : (
+                  <li>{productData.description}</li>
+                )}
               </ul>
             </div>
             <div className="cx-single">
               <div className="B-Saller">
                 <h3>Related products</h3>
                 <div className="mainSaller">
-                <Row>
-            {relatedProduct.map((product) => (
-        <Col key={product._id} xs={12} md={6} xl={3}>
-          <div className="Saller" >
-            <div className="subSaller">
-              <img src={product.imageURL[0]} alt={product.productName} onClick={() => navigateToSingleProduct(product._id)}/>
-              <div className="BestSellerDetails">
-                <h6>{product.productName}</h6>
-                <p>₹{product.offerPrice}</p>
-                <div className="buy-button">
-                  <button onClick={() => {handleAddToCart(product,quantity)
-                  }}>Add To Cart</button>
-                  <button>Buy Now</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Col>
-      ))}
-           
-
-          </Row>
+                  <Row>
+                    {relatedProduct.map((product) => (
+                      <Col key={product._id} xs={12} md={6} xl={3}>
+                        <div className="Saller">
+                          <div className="subSaller">
+                            <img
+                              src={product.imageURL[0]}
+                              alt={product.productName}
+                              onClick={() =>
+                                navigateToSingleProduct(product._id)
+                              }
+                            />
+                            <div className="BestSellerDetails">
+                              <h6>{product.productName}</h6>
+                              <p>₹{product.offerPrice}</p>
+                              <div className="buy-button">
+                                <button
+                                  onClick={() => {
+                                    handleAddToCart(product, quantity);
+                                  }}
+                                >
+                                  Add To Cart
+                                </button>
+                                <button>Buy Now</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Col>
+                    ))}
+                  </Row>
                 </div>
               </div>
             </div>

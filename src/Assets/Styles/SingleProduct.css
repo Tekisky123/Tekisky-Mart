@@ -444,6 +444,8 @@ color: white;
   
   .size-label.selected {
     border-color: #d5a455; /* Change the color as needed */
+    border-radius: 5px;
+    box-shadow: 1px 1px 8px #d5a455;
   }
   
   .size-label input {

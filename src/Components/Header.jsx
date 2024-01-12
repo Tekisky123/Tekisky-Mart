@@ -1,10 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
-import { FaShoppingCart, FaHeart, FaUser, FaWhatsapp } from "react-icons/fa";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { FaCartArrowDown, FaHeart, FaUser, FaWhatsapp } from "react-icons/fa";
+
 import { BiSolidSearchAlt2 } from "react-icons/bi";
 import "../Assets/Styles/Header.css";
 import logo from "../Assets/Images/main-logo-copy.jpeg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdEmail } from "react-icons/md";
+import { Context } from "../Context/Context";
 
 const Header = () => {
   // const primaryNavRef = useRef(null);
@@ -39,19 +41,29 @@ const Header = () => {
   //     document.removeEventListener("click", handleContainerClick);
   //   };
   // }, []);
+  const navigate = useNavigate();
+  const { cartItems, ToastContainer, toast } = useContext(Context);
 
   return (
     <div className="header-main-container">
       <div className="header-top">
         <div className="nav-contact">
-          <h6 className="nav-number"><FaWhatsapp /> +91 8421048203</h6>
-          <h6 className="nav-number"><MdEmail /> syed8040@gmail.com</h6>
+          <h6 className="nav-number">
+            <FaWhatsapp /> +91 8421048203
+          </h6>
+          <h6 className="nav-number">
+            <MdEmail /> syed8040@gmail.com
+          </h6>
         </div>
-        <Link to={"/"}><img src={logo} alt="" className="header-logo" /></Link>
+        <Link to={"/"}>
+          <img src={logo} alt="" className="header-logo" />
+        </Link>
         <div className="header-icons">
-          <BiSolidSearchAlt2 className="header-icon" />
-          <FaShoppingCart className="header-icon" />
-          <FaHeart className="header-icon" />
+          {/* <BiSolidSearchAlt2 className="header-icon" /> */}
+          <button className="icons cart-btn" onClick={() => navigate("/cart")}>
+            <span>{cartItems.length}</span>
+            <FaCartArrowDown className="header-icon"/>
+          </button>
           <FaUser className="header-icon" />
         </div>
       </div>

@@ -26,7 +26,7 @@ const decrement = () => {
     () => {
       let subTotal = 0;
       cartItems.map(
-        item => (subTotal += item.mrp * item.availablePackQty[0])
+        item => (subTotal += item.offerPrice * item.availablePackQty[0])
       );
       setCartSubToatal(subTotal);
 

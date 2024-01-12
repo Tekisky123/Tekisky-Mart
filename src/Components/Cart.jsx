@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { FaMinus, FaPlus } from "react-icons/fa";
+import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { Context } from "../Context/Context";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -56,14 +56,14 @@ const Cart = () => {
                 </div>
                 <div className="p-price">
                   <span>{item.availablePackQty}</span> x{" "}
-                  <span>{item.mrp} &#8377;</span>
+                  <span>{item.offerPrice} &#8377;</span>
                 </div>
                 <div className="remove-btn">
                   <button
                     className="btn btn-danger"
                     onClick={() => handleRemoveFromCart(item)}
                   >
-                    Remove
+                    <FaTrash />
                   </button>
                 </div>
               </div>

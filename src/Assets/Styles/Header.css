@@ -35,7 +35,7 @@
   top: 0;
 }
 
-ul {
+.header-bottom ul {
   list-style: none;
   display: flex;
   justify-content: space-evenly;
@@ -45,7 +45,7 @@ ul {
   padding: 3px 0px;
 }
 
-li {
+.header-bottom ul li {
   /* margin: 0px 56px; */
   color: #fff;
   display: flex;
@@ -64,7 +64,7 @@ li {
   text-transform: uppercase;
 }
 
-li:hover {
+.header-bottom ul li:hover {
   /* padding: 20px; */
   border-top: 2px solid white;
   border-bottom: 2px solid white;
