@@ -13,6 +13,7 @@ const PaymentStep = () => {
     handleRemoveFromCart,
     cartSubTotal,
     handleCartProductQuantity,
+    ToastContainer, toast
   } = useContext(Context);
   console.log(cartItems);
   const [status, setStatus] = useState(0);
@@ -79,7 +80,7 @@ const PaymentStep = () => {
       const data = response.data;
       if (data.success) {
         // setBestSellers(data.products);
-        alert("Success for order");
+        toast.success("Your order has been placed successfully,our operator contact you will shortly")
       } else {
         // Handle error if needed
         console.error("Error fetching data:", data.error);
@@ -193,6 +194,7 @@ const PaymentStep = () => {
 
   return (
     <div>
+    <ToastContainer/>
       <div className="first-image-container">
         <h2 className="first-container-heading">Payment Step</h2>
       </div>
