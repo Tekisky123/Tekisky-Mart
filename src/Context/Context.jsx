@@ -90,19 +90,37 @@ useEffect(() => {
   localStorage.setItem("cartItems", JSON.stringify(items)); // Store as a JSON string
 };
 
+const handleCartProductQuantity = (type, product) => {
+  setCartItems(prevItems => {
+    return prevItems.map(item => {
+      if (item._id === product._id) {
+        let productDetails = item.productDetails[0];
 
-  const handleCartProductQuantity = (type, product) => {
-    let items = [...cartItems];
-    let index = items.findIndex(p => p.id === product._id);
+        if (!productDetails) {
+          // Handle the case where productDetails is undefined
+          return item;
+        }
 
-    if (type === "inc") {
-      items[index].productDetails[0].availablePackQty += 1;
-    } else if (type === "dec") {
-      if (items[index].productDetails[0].availablePackQty === 1) return;
-      items[index].productDetails[0].availablePackQty -= 1;
-    }
-    setCartItems(items);
-  };
+        if (type === "inc") {
+          // Ensure that productDetails.availablePackQty exists and is a number
+          if (typeof productDetails.availablePackQty === 'number') {
+            productDetails.availablePackQty += 1;
+          } else {
+            // If availablePackQty is not a number, set it to 1
+            productDetails.availablePackQty = 1;
+          }
+        } else if (type === "dec" && productDetails.availablePackQty > 1) {
+          productDetails.availablePackQty -= 1;
+        }
+      }
+
+      return item;
+    });
+  });
+};
+
+
+
 
   return (
     <Context.Provider
