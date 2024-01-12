@@ -1,9 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../Assets/Styles/Style.scss";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../Context/Context";
 import Modal from 'react-modal';
+import { Base_Url, saveOrderProductAPI } from "../apis/Apis";
+import axios from "axios";
 
 const PaymentStep = () => {
 
@@ -213,6 +215,27 @@ const PaymentStep = () => {
       </div>
     );
   };
+
+  const handleSaveOrder = async () => {
+    try {
+      const payload={}
+      const response = await axios.post(`${Base_Url}${saveOrderProductAPI}${payload}`);
+      const data = response.data;
+      if (data.success) {
+        // setBestSellers(data.products);
+      } else {
+        // Handle error if needed
+        console.error('Error fetching data:', data.error);
+      }
+    } catch (error) {
+      // Handle network error
+      console.error('Network error:', error);
+    }
+  };
+
+  useEffect(() => {
+    handleSaveOrder();
+  }, []);
 
   return (
     <div>

@@ -4,4 +4,5 @@
 //  APIS
 
  export const getAllProductAPI="/admin/getproduct";
+ export const saveOrderProductAPI="/order/saveOrder";
 
