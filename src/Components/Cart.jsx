@@ -4,7 +4,7 @@ import { Context } from "../Context/Context";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useNavigate } from "react-router-dom";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 
 // import img from "../assets/images/watch-prod-3.webp";
 // import { Context } from "../context/Context";
@@ -18,7 +18,7 @@ const Cart = () => {
     handleCartProductQuantity,
   } = useContext(Context);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div className="cx-cart m-4">
@@ -46,7 +46,7 @@ const Cart = () => {
                   >
                     <FaMinus />
                   </span>
-                  <span className="qty">{item.availablePackQty}</span>
+                  <span className="qty">{item?.productDetails[0]?.availablePackQty}</span>
                   <span
                     className="plus"
                     onClick={() => handleCartProductQuantity("inc", item)}
@@ -55,8 +55,8 @@ const Cart = () => {
                   </span>
                 </div>
                 <div className="p-price">
-                  <span>{item.availablePackQty}</span> x{" "}
-                  <span>{item.offerPrice} &#8377;</span>
+                  <span>{item?.productDetails[0]?.availablePackQty}</span> x{" "}
+                  <span>{item?.productDetails[0]?.offerPrice} &#8377;</span>
                 </div>
                 <div className="remove-btn">
                   <button
@@ -72,21 +72,40 @@ const Cart = () => {
         </Col>
         <Col xs={12} md={4} xl={4}>
           <div className="item-total totalCart">
-            <h4 style={{marginBottom:"1rem"}}>
-              Cart Total
-              
-            </h4>
+            <h4 style={{ marginBottom: "1rem" }}>Cart Total</h4>
             <div>
-<h5 className="totalDiv"><span>Subtotal</span><span>{cartSubTotal} &#8377;</span></h5>
-<h5 style={{fontWeight:"600",marginBottom:"1rem"}}>Shipping</h5>
-<h6 style={{color:"gray"}}>free delivery for order above 500
-delivery charge 20 rs
-</h6>
-<h6 style={{color:"gray",marginBottom:"1rem"}}><span>flate Rate :</span><span>&#8377; 60.00</span></h6>
-<h6 style={{fontWeight:"600",marginBottom:"1rem"}}>Shipping to maharashtra</h6>
-<h5 style={{fontWeight:"600",marginBottom:"1rem"}} className="totalDiv"><span>Total</span><span>{cartSubTotal} &#8377;</span></h5>
-<button style={{width:"100%",marginBottom:"0.5rem"}} className="checkoutBtn" onClick={()=>navigate('/payment_step')}>Proceed To Checkout</button>
-
+              <h5 className="totalDiv">
+                <span>Subtotal</span>
+                <span>{cartSubTotal} &#8377;</span>
+              </h5>
+              <h5 style={{ fontWeight: "600", marginBottom: "1rem" }}>
+                Shipping
+              </h5>
+              <h6 style={{ color: "gray" }}>
+                free delivery for order above 500 delivery charge 20 rs
+              </h6>
+              <h6 style={{ color: "gray", marginBottom: "1rem" }}>
+                <span>flate Rate :</span>
+                <span>&#8377; 60.00</span>
+              </h6>
+              <h6 style={{ fontWeight: "600", marginBottom: "1rem" }}>
+                Shipping to maharashtra
+              </h6>
+              <h5
+                style={{ fontWeight: "600", marginBottom: "1rem" }}
+                className="totalDiv"
+              >
+                <span>Total</span>
+                <span>{cartSubTotal} &#8377;</span>
+              </h5>
+              <button
+                style={{ width: "100%", marginBottom: "0.5rem" }}
+                className="checkoutBtn"
+                onClick={() => navigate("/payment_step")}
+                disabled={cartItems.length <= 0}
+              >
+                Proceed To Checkout
+              </button>
             </div>
           </div>
         </Col>

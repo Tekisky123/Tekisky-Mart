@@ -206,7 +206,7 @@ const SingleProduct = () => {
                   <p className="new-price">
                     Offer Price:{" "}
                     <span>
-                      ₹{productData.offerPrice} ({productData.discount}%)
+                    ₹{productData?.productDetails[0]?.offerPrice}
                     </span>
                   </p>
                 </div>
@@ -324,8 +324,8 @@ const SingleProduct = () => {
                               }
                             />
                             <div className="BestSellerDetails">
-                              <h6>{product.productName}</h6>
-                              <p>₹{product.offerPrice}</p>
+                              <h6>{product?.productName}</h6>
+                              <p>₹{productData?.productDetails[0]?.offerPrice}</p>
                               <div className="buy-button">
                                 <button
                                   onClick={() => {

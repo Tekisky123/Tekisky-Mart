@@ -182,7 +182,7 @@ const Home = () => {
               <img src={product.imageURL[0]} alt={product.productName} onClick={() => navigateToSingleProduct(product._id)}/>
               <div className="BestSellerDetails">
                 <h6>{product.productName}</h6>
-                <p>₹{product.offerPrice}</p>
+                <p>₹{product?.productDetails[0]?.offerPrice}</p>
                 <div className="buy-button">
                   <button onClick={() => {handleAddToCart(product,quantity)
                   }}>Add To Cart</button>

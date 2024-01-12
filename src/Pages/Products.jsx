@@ -8,7 +8,7 @@ import { Context } from "../Context/Context";
 
 const Products = () => {
   
-  const { handleAddToCart } = useContext(Context);
+  const { handleAddToCart ,ToastContainer} = useContext(Context);
   const [products, setProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate()
@@ -47,6 +47,7 @@ const Products = () => {
       <div className="first-image-container">
         <h2 className="first-container-heading">Shop</h2>
       </div>
+      <ToastContainer />
       <div className="B-Saller">
         <h3>Best Sellers</h3>
         <div className="mainSaller">
@@ -62,7 +63,7 @@ const Products = () => {
                     />
                     <div className="BestSellerDetails">
                       <h6>{products.productName}</h6>
-                      <p>₹{parseFloat(products.offerPrice).toFixed(2)}</p>
+                      <p>₹{parseFloat(products?.productDetails[0]?.offerPrice).toFixed(2)}</p>
                       
                       <div className="buy-button">
                   <button onClick={() => {handleAddToCart(products,quantity)

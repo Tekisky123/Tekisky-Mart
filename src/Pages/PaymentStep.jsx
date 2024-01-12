@@ -3,30 +3,30 @@ import "../Assets/Styles/Style.scss";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../Context/Context";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import { Base_Url, saveOrderProductAPI } from "../apis/Apis";
 import axios from "axios";
 
 const PaymentStep = () => {
-
   const {
     cartItems,
     handleRemoveFromCart,
     cartSubTotal,
     handleCartProductQuantity,
   } = useContext(Context);
+  console.log(cartItems);
   const [status, setStatus] = useState(0);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNumber: "",
+    AlternateNumber: "",
     email: "",
     houseNo: "",
     area: "",
     landMark: "",
-    addressType: "",
+    // addressType: "",
     additionalAdd: "",
-
   });
   const [errors, setErrors] = useState({
     fullName: "",
@@ -39,9 +39,7 @@ const PaymentStep = () => {
     addressType: "",
     additionalAdd: "",
   });
-  console.log("formData", formData);
 
-  
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
@@ -52,32 +50,60 @@ const PaymentStep = () => {
     setModalIsOpen(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Handle form submission and order details here
-    console.log('Form data:', formData);
-    console.log('Order details:', cartItems);
+    console.log("Form data:", formData);
+    console.log("Order details:", cartItems);
+    try {
+
+      const payload = {
+        customerName: formData.fullName,
+        mobileNumber: formData.phoneNumber,
+        // mobileNumber: "919405377496",
+        alternateNumber: formData.AlternateNumber,
+        landmark: formData.landMark,
+        address: formData.additionalAdd,
+        products: [],
+        totalAmount: cartSubTotal,
+      };
+      cartItems.forEach((product) => {
+        payload.products.push({
+          product: product._id,
+          quantity: product.productDetails[0].availablePackQty[0], // You may adjust the quantity based on your requirements
+        });
+      });
+
+
+      const response = await axios.post(
+        `${Base_Url}${saveOrderProductAPI}`, payload  );
+      const data = response.data;
+      if (data.success) {
+        // setBestSellers(data.products);
+        alert("Success for order");
+      } else {
+        // Handle error if needed
+        console.error("Error fetching data:", data.error);
+      }
+    } catch (error) {
+      // Handle network error
+      console.error("Network error:", error);
+    }
     closeModal(); // Close the modal after submission
   };
-
-
- 
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    if (
-      name === "phoneNumber" ||
-      name === "AlternateNumber" 
-    ) {
+    if (name === "phoneNumber" || name === "AlternateNumber") {
       // Remove any non-digit characters (except '-')
       const numericValue = value.replace(/[^0-9-]/g, "");
 
       // Ensure the length does not exceed 10 digits
-      const maxLength = 10;
+      const maxLength = 12;
       const truncatedValue = numericValue.slice(0, maxLength);
 
       // Parse the numeric value as an integer
-      const intValue = parseInt(truncatedValue, 10);
+      const intValue = parseInt(truncatedValue, 12);
 
       // Check if the parsed value is a positive number
       const isValidNumber = !isNaN(intValue) && intValue >= 0;
@@ -128,44 +154,17 @@ const PaymentStep = () => {
     }
   };
 
-  const handlePrevious=()=>{
-    setStatus(status - 1);
-  }
 
-  const handleNext1 = (e) => {
-    e.preventDefault();
-    var requiredFields = ["phoneNumber"];
-
-    let hasError = false;
-
-    console.log(hasError);
-
-    requiredFields.forEach((field) => {
-      if (!formData[field]) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [field]: " ",
-        }));
-        hasError = true;
-      }
-    });
-
-    if (hasError) {
-      alert("Mandatory fields are required");
-    }
-    if (!hasError) {
-      setStatus(status + 1);
-    }
-  };
-  const handleNext2 = (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
     var requiredFields = [
+      'phoneNumber',
       "fullName",
       // "AlternateNumber",
       // "email",
       // "houseNo",
       // "area",
-      // "landMark",
+      "landMark",
       // "addressType",
       "additionalAdd",
     ];
@@ -188,54 +187,9 @@ const PaymentStep = () => {
       alert("Mandatory fields are required");
     }
     if (!hasError) {
-      openModal()
+      openModal();
     }
   };
-
-  const renderProgressBar = () => {
-    const steps = [
-      "Phone Number",
-      "Delivery Address",
-      // "payment Method",
-      // "Disease Details",
-    ];
-    return (
-      <div className="progress-bar">
-        {steps.map((step, index) => (
-          <div
-            key={index}
-            className={`step ${
-              // status === index + 1
-              status === index ? "active" : status > index && "completed"
-            }`}
-          >
-            {step}
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const handleSaveOrder = async () => {
-    try {
-      const payload={}
-      const response = await axios.post(`${Base_Url}${saveOrderProductAPI}${payload}`);
-      const data = response.data;
-      if (data.success) {
-        // setBestSellers(data.products);
-      } else {
-        // Handle error if needed
-        console.error('Error fetching data:', data.error);
-      }
-    } catch (error) {
-      // Handle network error
-      console.error('Network error:', error);
-    }
-  };
-
-  useEffect(() => {
-    handleSaveOrder();
-  }, []);
 
   return (
     <div>
@@ -243,10 +197,10 @@ const PaymentStep = () => {
         <h2 className="first-container-heading">Payment Step</h2>
       </div>
       <div className="stepContiner">
-        {renderProgressBar()}
+
         <div style={{ width: "80%", margin: " 80px auto" }}>
           <form action="">
-            {status === 0 ? (
+          
               <>
                 <Row className="Row">
                   <Col xs={12} md={4} xl={4}>
@@ -268,66 +222,55 @@ const PaymentStep = () => {
                   </Col>
                   <Col xs={12} md={6} xl={6}></Col>
                   <Col xs={12} md={6} xl={6}>
-                    {" "}
-                    <div style={{ float: "right", margin: "10px" }}>
-                      {" "}
-                      <button className="NextBtn" onClick={()=>navigate('/cart')}>
-                        Previous
-                      </button>
-                      <button className="NextBtn" onClick={handleNext1}>
-                        Next
-                      </button>
-                    </div>
+                  
                   </Col>
                 </Row>
               </>
-            ) : status === 1 ? (
+
               <>
                 <div>
                   <Row className="Row">
-
-                  <Col xs={12} md={4} xl={4}>
-                    {" "}
-                    <div className="Formlabel">
-                       Name
-                      <span className="error-message">⁕</span>{" "}
-                    </div>
-                  </Col>
-                  <Col xs={12} md={6} xl={6}>
-                    <input
-                      type="text"
-                      className="MyInput"
-                      placeholder="Enter Name"
-                      name="fullName"
-                      value={formData.fullName}
-                      onChange={handleInputChange}
-                    />
-                  </Col>
-                  <Col xs={12} md={4} xl={4}>
-                    {" "}
-                    <div className="Formlabel">
-                    Alternate Mobile Number
-                      {/* <span className="error-message">⁕</span>{" "} */}
-                    </div>
-                  </Col>
-                  <Col xs={12} md={6} xl={6}>
-                    <input
-                      type="number"
-                      className="MyInput"
-                      placeholder="Enter Alternate Mobile Number"
-                      name="AlternateNumber"
-                      value={formData.AlternateNumber}
-                      onChange={handleInputChange}
-                    />
-                  </Col>
-                  {/* <Col xs={12} md={4} xl={4}>
+                    <Col xs={12} md={4} xl={4}>
+                      <div className="Formlabel">
+                        Name
+                        <span className="error-message">⁕</span>{" "}
+                      </div>
+                    </Col>
+                    <Col xs={12} md={6} xl={6}>
+                      <input
+                        type="text"
+                        className="MyInput"
+                        placeholder="Enter Name"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+                    <Col xs={12} md={4} xl={4}>
+                      {" "}
+                      <div className="Formlabel">
+                        Alternate Mobile Number
+                        {/* <span className="error-message">⁕</span>{" "} */}
+                      </div>
+                    </Col>
+                    <Col xs={12} md={6} xl={6}>
+                      <input
+                        type="number"
+                        className="MyInput"
+                        placeholder="Enter Alternate Mobile Number"
+                        name="AlternateNumber"
+                        value={formData.AlternateNumber}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+                    {/* <Col xs={12} md={4} xl={4}>
                     {" "}
                     <div className="Formlabel">
                     Email Address
                       <span className="error-message">⁕</span>{" "}
                     </div>
                   </Col> */}
-                  {/* <Col xs={12} md={6} xl={6}>
+                    {/* <Col xs={12} md={6} xl={6}>
                     <input
                       type="email"
                       className="MyInput"
@@ -337,7 +280,7 @@ const PaymentStep = () => {
                       onChange={handleInputChange}
                     />
                   </Col> */}
-                  {/* <Col xs={12} md={4} xl={4}>
+                    {/* <Col xs={12} md={4} xl={4}>
                     {" "}
                     <div className="Formlabel">
                     House No, Bulding ,Company ,Appartment
@@ -354,7 +297,7 @@ const PaymentStep = () => {
                       onChange={handleInputChange}
                     />
                   </Col> */}
-                  {/* <Col xs={12} md={4} xl={4}>
+                    {/* <Col xs={12} md={4} xl={4}>
                     {" "}
                     <div className="Formlabel">
                       Area Colony , Street , Sector , Village
@@ -371,24 +314,24 @@ const PaymentStep = () => {
                       onChange={handleInputChange}
                     />
                   </Col> */}
-                  <Col xs={12} md={4} xl={4}>
-                    {" "}
-                    <div className="Formlabel">
-                    Landmark e.g. near IT park
-                      {/* <span className="error-message">⁕</span>{" "} */}
-                    </div>
-                  </Col>
-                  <Col xs={12} md={6} xl={6}>
-                    <input
-                      type="text"
-                      className="MyInput"
-                      placeholder="Enter Landmark e.g. near IT park"
-                      name="landMark"
-                      value={formData.landMark}
-                      onChange={handleInputChange}
-                    />
-                  </Col>
-                  {/* <Col xs={12} md={4} xl={4}>
+                    <Col xs={12} md={4} xl={4}>
+                      {" "}
+                      <div className="Formlabel">
+                        Landmark e.g. near IT park
+                        <span className="error-message">⁕</span>{" "}
+                      </div>
+                    </Col>
+                    <Col xs={12} md={6} xl={6}>
+                      <input
+                        type="text"
+                        className="MyInput"
+                        placeholder="Enter Landmark e.g. near IT park"
+                        name="landMark"
+                        value={formData.landMark}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+                    {/* <Col xs={12} md={4} xl={4}>
                     {" "}
                     <div className="Formlabel">
                     Address Type
@@ -408,154 +351,131 @@ const PaymentStep = () => {
 
                 </select>
                   </Col> */}
-                  <Col xs={12} md={4} xl={4}>
-                    {" "}
-                    <div className="Formlabel">
-                    Address Details
-                      <span className="error-message">⁕</span>{" "}
-                    </div>
-                  </Col>
-                  <Col xs={12} md={6} xl={6}>
-                  <textarea
-                  style={{height:"auto"}}
-                      type="textarea"
-                      rows='4'
-                      className="MyInput"
-                      placeholder="Enter House No, Bulding ,Company ,Appartment ,Area Colony , Street , Sector , Village"
-                      name="additionalAdd"
-                      value={formData.additionalAdd}
-                      onChange={handleInputChange}
-                    />
-                  </Col>
+                    <Col xs={12} md={4} xl={4}>
+                      {" "}
+                      <div className="Formlabel">
+                        Address Details
+                        <span className="error-message">⁕</span>{" "}
+                      </div>
+                    </Col>
+                    <Col xs={12} md={6} xl={6}>
+                      <textarea
+                        style={{ height: "auto" }}
+                        type="textarea"
+                        rows="4"
+                        className="MyInput"
+                        placeholder="Enter House No, Bulding ,Company ,Appartment ,Area Colony , Street , Sector , Village"
+                        name="additionalAdd"
+                        value={formData.additionalAdd}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
 
-                  <Col xs={12} md={6} xl={6}></Col>
-                  <Col xs={12} md={6} xl={6}>
-                    {" "}
-                    <div style={{ float: "right", margin: "10px" }}>
-                    <button className="NextBtn" onClick={handlePrevious}>
-                        Previous
-                      </button>
-                      <button className="NextBtn" onClick={handleNext2}>
-                        Next
-                      </button>
-                    </div>
-                  </Col>
+                    <Col xs={12} md={6} xl={6}></Col>
+                    <Col xs={12} md={6} xl={6}>
+                      {" "}
+                      <div style={{ float: "right", margin: "10px" }}>
+                        <button className="NextBtn" onClick={()=>navigate('/cart')}>
+                          Previous
+                        </button>
+                        <button className="NextBtn" onClick={handleNext}>
+                          Next
+                        </button>
+                      </div>
+                    </Col>
                   </Row>
                 </div>
               </>
-            ) : (
-              <>
-                <div>
-                  <Row>
-                    <Col></Col>
-                    <Col></Col>
-                    <Col></Col>
-                  </Row>
-                </div>
-              </>
-            )}
+
           </form>
         </div>
       </div>
-       <div className="modalDiv">
-       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Order Preview"
-      >
-        <div>
-          {/* Customer details form */}
-          <div style={{ width: '80%', margin: '20px auto' }}>
+      <div className="modalDiv">
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          contentLabel="Order Preview"
+        >
+          <div>
+            <div style={{ width: "80%", margin: "20px auto" }}></div>
+            <div className="cx-cart m-4">
+              <Row>
+                <Col xs={12} md={12} xl={12}>
+                  <div className="cx-heading">
+                    <h3>Shipping Cart</h3>
+                  </div>
+                </Col>
+                <Col xs={12} md={8} xl={8}>
+   
+                  <div className="customerDetail">
+                    <div>
+                      <span>Name</span>
+                      <span>{formData.fullName}</span>
+                    </div>
+                    <div>
+                      <span>Contact Number</span>
+                      <span>{formData.phoneNumber}</span>
+                    </div>
+                    <div>
+                      <span>Alternate Mobile Number</span>
+                      <span>{formData.AlternateNumber}</span>
+                    </div>
+                    <div>
+                      <span>Landmark</span>
+                      <span>{formData.landMark}</span>
+                    </div>
+                    <div>
+                      <span>Address Details</span>
+                      <span>{formData.additionalAdd}</span>
+                    </div>
+                  </div>
+                </Col>
+                <Col xs={12} md={4} xl={4}>
+                  <div className="item-total totalCart">
+                    <h4 style={{ marginBottom: "1rem" }}>Cart Total</h4>
+                    <div>
+                      <h5 className="totalDiv">
+                        <span>Subtotal</span>
+                        <span>{cartSubTotal} &#8377;</span>
+                      </h5>
+                      <h5 style={{ fontWeight: "600", marginBottom: "1rem" }}>
+                        Shipping
+                      </h5>
+                      <h6 style={{ color: "gray" }}>
+                        free delivery for order above 500 delivery charge 20 rs
+                      </h6>
+                      <h6 style={{ color: "gray", marginBottom: "1rem" }}>
+                        <span>flate Rate :</span>
+                        <span>&#8377; 60.00</span>
+                      </h6>
+                      <h6 style={{ fontWeight: "600", marginBottom: "1rem" }}>
+                        Shipping to maharashtra
+                      </h6>
+                      <h5
+                        style={{ fontWeight: "600", marginBottom: "1rem" }}
+                        className="totalDiv"
+                      >
+                        <span>Total</span>
+                        <span>{cartSubTotal} &#8377;</span>
+                      </h5>
+                      {/* <button style={{width:"100%",marginBottom:"0.5rem"}} className="checkoutBtn" onClick={()=>navigate('/payment_step')}>Proceed To Checkout</button> */}
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </div>
 
-          </div>
-
-          <div className="cx-cart m-4">
-      <Row>
-        <Col xs={12} md={12} xl={12}>
-          <div className="cx-heading">
-            <h3>Shipping Cart</h3>
-          </div>
-        </Col>
-        <Col xs={12} md={8} xl={8}>
-          <div className="cart-item-wrapper">
-            {cartItems.map((item) => (
-              <div className="item-wrapper" key={item._id}>
-                <div className="p-img">
-                  <img src={item.imageURL[0]} alt="" />
-                </div>
-
-                <div className="p-name">
-                  <p>{item.productName}</p>
-                </div>
-                {/* <div className="p-counter">
-                  <span
-                    className="minus"
-                    onClick={() => handleCartProductQuantity("dec", item)}
-                  >
-                    <FaMinus />
-                  </span>
-                  <span className="qty">{item.availablePackQty}</span>
-                  <span
-                    className="plus"
-                    onClick={() => handleCartProductQuantity("inc", item)}
-                  >
-                    <FaPlus />
-                  </span>
-                </div> */}
-                <div className="p-price">
-                  <span>{item.availablePackQty}</span> x{" "}
-                  <span>{item.offerPrice} &#8377;</span>
-                </div>
-                {/* <div className="remove-btn">
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleRemoveFromCart(item)}
-                  >
-                    Remove
-                  </button>
-                </div> */}
-              </div>
-            ))}
-          </div>
-          <div className="customerDetail">
-          <div><span>Name</span><span>{formData.fullName}</span></div>
-          <div><span>Contact Number</span><span>{formData.phoneNumber}</span></div>
-          <div><span>Alternate Mobile Number</span><span>{formData.AlternateNumber}</span></div>
-          <div><span>Landmark</span><span>{formData.landMark}</span></div>
-          <div><span>Address Details</span><span>{formData.additionalAdd}</span></div>
-        </div>
-        </Col>
-        <Col xs={12} md={4} xl={4}>
-          <div className="item-total totalCart">
-            <h4 style={{marginBottom:"1rem"}}>
-              Cart Total
-              
-            </h4>
-            <div>
-<h5 className="totalDiv"><span>Subtotal</span><span>{cartSubTotal} &#8377;</span></h5>
-<h5 style={{fontWeight:"600",marginBottom:"1rem"}}>Shipping</h5>
-<h6 style={{color:"gray"}}>free delivery for order above 500
-delivery charge 20 rs
-</h6>
-<h6 style={{color:"gray",marginBottom:"1rem"}}><span>flate Rate :</span><span>&#8377; 60.00</span></h6>
-<h6 style={{fontWeight:"600",marginBottom:"1rem"}}>Shipping to maharashtra</h6>
-<h5 style={{fontWeight:"600",marginBottom:"1rem"}} className="totalDiv"><span>Total</span><span>{cartSubTotal} &#8377;</span></h5>
-{/* <button style={{width:"100%",marginBottom:"0.5rem"}} className="checkoutBtn" onClick={()=>navigate('/payment_step')}>Proceed To Checkout</button> */}
-
+            <div style={{ textAlign: "center", margin: "20px" }}>
+              <button onClick={closeModal} className="NextBtn">
+                Back
+              </button>
+              <button onClick={handleSubmit} className="NextBtn">
+                Submit
+              </button>
             </div>
           </div>
-        </Col> 
-      </Row>
-    </div>
-
-          <div style={{ textAlign: 'center', margin: '20px' }}>
-            <button onClick={closeModal} className="NextBtn">Close</button>
-            <button onClick={handleSubmit} className="NextBtn">Submit</button>
-          </div>
-        </div>
-      </Modal>
-       </div>
-
+        </Modal>
+      </div>
     </div>
   );
 };
