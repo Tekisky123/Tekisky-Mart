@@ -58,22 +58,31 @@ const PaymentStep = () => {
     try {
 
       const payload = {
-        customerName: formData.fullName,
-        mobileNumber: formData.phoneNumber,
-        // mobileNumber: "919405377496",
-        alternateNumber: formData.AlternateNumber,
-        landmark: formData.landMark,
-        address: formData.additionalAdd,
-        products: [],
-        totalAmount: cartSubTotal,
-      };
-      cartItems.forEach((product) => {
-        payload.products.push({
-          product: product._id,
-          quantity: product.productDetails[0].availablePackQty[0], // You may adjust the quantity based on your requirements
-        });
-      });
+  customerName: formData.fullName,
+  mobileNumber: formData.phoneNumber,
+  alternateNumber: formData.AlternateNumber,
+  landmark: formData.landMark,
+  address: formData.additionalAdd,
+  products: [],
+  totalAmount: cartSubTotal,
+};
 
+cartItems.forEach((product) => {
+  // Loop through productDetails array
+  product.productDetails.forEach((details) => {
+    // Check if availableStockQty is greater than 0
+    if (details.availableStockQty > 0) {
+      payload.products.push({
+        productId: product._id,
+        productType: product.productType,
+        quantity: details.availablePackQty[0],
+        packetweight: details.packetweight,
+        mrp: details.mrp,
+        offerPrice: details.offerPrice,
+      });
+    }
+  });
+});
 
       const response = await axios.post(
         `${Base_Url}${saveOrderProductAPI}`, payload  );

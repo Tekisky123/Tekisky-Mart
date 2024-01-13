@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Cookies from 'js-cookie';
 
 export const Context = createContext();
 
@@ -43,8 +42,7 @@ useEffect(() => {
 
 
   useEffect(() => {
-    // Load cart items from cookies on component mount
-    const storedCartItems = Cookies.get('cartItems');
+    const storedCartItems = localStorage.getItem('cartItems');
     if (storedCartItems) {
       setCartItems(JSON.parse(storedCartItems));
     }
@@ -71,8 +69,7 @@ useEffect(() => {
       items = [...items, product];
     }
 
-    // Save cart items to cookies
-    Cookies.set('cartItems', JSON.stringify(items), { expires: Infinity });
+    localStorage.setItem('cartItems', JSON.stringify(items));
 
     toast.success(`${product?.productName} has been added to your cart`);
     setCartItems(items);
@@ -86,8 +83,8 @@ useEffect(() => {
   let items = [...cartItems];
   items = items.filter(p => p._id !== product._id);
 
+  localStorage.setItem('cartItems', JSON.stringify(items)); // Store as a JSON string
   setCartItems(items);
-  localStorage.setItem("cartItems", JSON.stringify(items)); // Store as a JSON string
 };
 
 const handleCartProductQuantity = (type, product) => {
