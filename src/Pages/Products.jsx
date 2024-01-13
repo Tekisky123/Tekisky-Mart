@@ -11,6 +11,8 @@ const Products = () => {
   const { handleAddToCart ,ToastContainer} = useContext(Context);
   const [products, setProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(true); // Track loading state
+
   const navigate = useNavigate()
 
   const navigateToSingleProduct = (productId) => {
@@ -35,50 +37,66 @@ const Products = () => {
       }) // Replace 'YOUR_NEW_API_ENDPOINT' with the actual API endpoint
       .then((response) => {
         setProducts(response.data.products);
+        setLoading(false);
         console.log(response);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+        setLoading(false);
       });
   }, []);
 
   return (
-    <div className="main-page cx-Home" >
-      <div className="first-image-container">
-        <h2 className="first-container-heading">Shop</h2>
-      </div>
-      <ToastContainer />
-      <div className="B-Saller">
-        <h3>Best Sellers</h3>
-        <div className="mainSaller">
-          <Row>
-            {products.map((products) => (
-              <Col key={products._id} xs={12} md={6} xl={3}>
-                <div className="Saller"  >
+    <div className="main-page cx-Home">
+    <div className="first-image-container">
+      <h2 className="first-container-heading">Shop</h2>
+    </div>
+    <ToastContainer />
+    <div className="B-Saller">
+      <h3>Best Sellers</h3>
+      <div className="mainSaller">
+        <Row>
+          {loading ? (
+            // Render skeleton loading cards while data is being fetched
+            Array.from({ length: 8 }).map((_, index) => (
+              <Col key={index} xs={12} md={6} xl={3}>
+                <div className="Saller product-card-skeleton" />
+              </Col>
+            ))
+          ) : (
+            // Render actual product cards when data is available
+            products.map((product) => (
+              <Col key={product._id} xs={12} md={6} xl={3}>
+                <div className="Saller">
                   <div className="subSaller">
                     <img
-                    onClick={() => navigateToSingleProduct(products._id)}
-                      src={products.imageURL[0]}
-                      alt={products.productName}
+                      onClick={() => navigateToSingleProduct(product._id)}
+                      src={product.imageURL[0]}
+                      alt={product.productName}
                     />
                     <div className="BestSellerDetails">
-                      <h6>{products.productName}</h6>
-                      <p>₹{parseFloat(products?.productDetails[0]?.offerPrice).toFixed(2)}</p>
-                      
+                      <h6>{product.productName}</h6>
+                      <p>₹{parseFloat(product?.productDetails[0]?.offerPrice).toFixed(2)}</p>
                       <div className="buy-button">
-                  <button onClick={() => {handleAddToCart(products,quantity)
-                  }}>Add To Cart</button>
-                  <button>Buy Now</button>
-                </div>
+                        <button
+                          onClick={() => {
+                            handleAddToCart(product, quantity);
+                          }}
+                        >
+                          Add To Cart
+                        </button>
+                        <button>Buy Now</button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </Col>
-            ))}
-          </Row>
-        </div>
+            ))
+          )}
+        </Row>
       </div>
     </div>
+  </div>
   );
 };
 

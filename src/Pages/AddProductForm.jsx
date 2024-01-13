@@ -59,8 +59,6 @@ const AddProductForm = () => {
       };
     });
   };
-  
-
 
   const handleAddProduct = () => {
     setFormData((prevData) => ({
@@ -167,6 +165,16 @@ const AddProductForm = () => {
     } finally {
       setLoading(false);
     }
+  };
+  const handleRemoveFile = (index) => {
+    setFormData((prevData) => {
+      const updatedFiles = [...prevData.files];
+      updatedFiles.splice(index, 1);
+      return {
+        ...prevData,
+        files: updatedFiles,
+      };
+    });
   };
 
   return (
@@ -357,11 +365,7 @@ const AddProductForm = () => {
                 name={`productDetails[${index}][mrp]`}
                 value={detail.mrp}
                 onChange={(e) =>
-                  handleProductDetailsChange(
-                    index,
-                    "mrp",
-                    e.target.value
-                  )
+                  handleProductDetailsChange(index, "mrp", e.target.value)
                 }
                 required
                 min="0"
@@ -455,26 +459,25 @@ const AddProductForm = () => {
               />
             </label>
           </div>
-
-          {/* <div className="upload__img-wrap">
-            {files.map((image, index) => (
+          <div className="upload__img-wrap">
+            {formData.files.map((file, index) => (
               <div key={index} className="upload__img-box">
                 <div
                   style={{
-                    backgroundImage: `url(${URL.createObjectURL(image)})`,
+                    backgroundImage: `url(${URL.createObjectURL(file)})`,
                   }}
                   data-number={index}
-                  data-file={image.name}
+                  data-file={file.name}
                   className="img-bg"
                 >
                   <div
                     className="upload__img-close"
-                    onClick={() => handleImgClose(image)}
+                    onClick={() => handleRemoveFile(index)}
                   ></div>
                 </div>
               </div>
             ))}
-          </div> */}
+          </div>
         </div>
 
         <div className="form-group">

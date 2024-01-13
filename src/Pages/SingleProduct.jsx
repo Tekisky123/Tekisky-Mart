@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "../Assets/Styles/SingleProduct.css";
 import "../Assets/Styles/Style.scss";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import "../Assets/Styles/Style.scss";
+import "../Assets/Styles/AddProductForm.css"
 import {
   FaCartPlus,
   FaFacebook,
@@ -172,7 +172,15 @@ const SingleProduct = () => {
     <div className="single-main-container">
       <ToastContainer />
       {loading ? (
-        <p>Loading...</p>
+        <div className="loader-container">
+          <div className="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
       ) : productData ? (
         <>
           <div className="first-image-container">
