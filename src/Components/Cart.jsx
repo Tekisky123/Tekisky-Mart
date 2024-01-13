@@ -16,10 +16,12 @@ const Cart = () => {
     handleRemoveFromCart,
     cartSubTotal,
     handleCartProductQuantity,
+    selectProductData
   } = useContext(Context);
 
   const navigate = useNavigate();
 
+  console.log("selectProductData",selectProductData)
   return (
     <div className="cx-cart m-4">
       <Row>

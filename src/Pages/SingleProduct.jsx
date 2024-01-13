@@ -25,7 +25,7 @@ const SingleProduct = () => {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [relatedProduct, setRelatedProduct] = useState([]);
-  const { handleAddToCart, ToastContainer } = useContext(Context);
+  const { handleAddToCart, ToastContainer ,setSelectProductData} = useContext(Context);
   const [selectedSize, setSelectedSize] = useState("");
   const navigate = useNavigate();
 
@@ -55,11 +55,13 @@ const SingleProduct = () => {
 
   const handleSizeChange = (event) => {
     const newSize = event.target.value;
+    
     setSelectedSize(newSize);
 
     const selectedSizeData = productData?.productDetails.find(
       (details) => details.packetweight === newSize
     );
+    setSelectProductData(selectedSizeData)
 
     if (selectedSizeData) {
       const { mrp, offerPrice } = selectedSizeData;

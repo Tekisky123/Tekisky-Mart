@@ -8,9 +8,12 @@ const AppContext = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [selectProductData, setSelectProductData] = useState(null);
   const [cartCount, setCartCount] = useState(0);
   const [cartSubTotal, setCartSubTotal] = useState(0);
   const [quantity, setQuantity] = useState(1);
+
+  
 
 const increment = () => {
   setQuantity(quantity + 1);
@@ -46,8 +49,15 @@ useEffect(() => {
     if (storedCartItems) {
       setCartItems(JSON.parse(storedCartItems));
     }
+    
+    // setSelectProductData(localStorage.getItem('selectProductData'));
   }, []);
 
+  // useEffect(() => {
+  //   localStorage.setItem('selectProductData', selectProductData);
+  // }, [selectProductData])
+
+  
   
   const handleAddToCart = (product, quantity) => {
    
@@ -75,7 +85,7 @@ useEffect(() => {
     setCartItems(items);
   };
 
-  console.log("cartItems",cartItems)
+  // console.log("cartItems",cartItems)
 
 
   const handleRemoveFromCart = (product) => {
@@ -122,6 +132,8 @@ const handleCartProductQuantity = (type, product) => {
   return (
     <Context.Provider
       value={{
+        selectProductData,
+        setSelectProductData,
         toast,
         ToastContainer,
         products,
