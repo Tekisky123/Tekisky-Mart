@@ -67,11 +67,18 @@ const PaymentStep = () => {
         products: [],
         totalAmount: cartSubTotal,
       };
-      cartItems.forEach((product) => {
-        payload.products.push({
-          product: product._id,
-          quantity: product.productDetails[0].availablePackQty[0], // You may adjust the quantity based on your requirements
-        });
+      cartItems.forEach((product,index) => {
+        if (product.productDetails && product.productDetails[index]) {
+          payload.products.push({
+            product: product._id,
+            quantity: product.productDetails[0].availableStockQty,
+            productDetails: product.productDetails[0]._id,
+            // You may adjust the quantity based on your requirements
+          });
+        } else {
+          console.error("productDetails is undefined or empty for product:", product);
+          // Handle the case where productDetails is undefined or empty
+        }
       });
 
 
