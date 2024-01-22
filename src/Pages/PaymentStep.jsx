@@ -71,8 +71,8 @@ const PaymentStep = () => {
         if (product.productDetails && product.productDetails[index]) {
           payload.products.push({
             product: product._id,
-            quantity: product.productDetails[0].availableStockQty,
-            productDetails: product.productDetails[0]._id,
+            quantity: product.productDetails[index].availableStockQty,
+            productDetails: product.productDetails[index]._id,
             // You may adjust the quantity based on your requirements
           });
         } else {
