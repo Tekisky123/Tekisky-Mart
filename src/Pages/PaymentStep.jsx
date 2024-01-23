@@ -60,28 +60,29 @@ const PaymentStep = () => {
     console.log("Order details:", cartItems);
     try {
       const payload = {
-        customerName: formData.fullName,
-        mobileNumber: formData.phoneNumber,
-        // mobileNumber: "919405377496",
-        alternateNumber: formData.AlternateNumber,
-        landmark: formData.landMark,
-        address: formData.additionalAdd,
-        products: [],
-        totalAmount: cartSubTotal,
-      };
-      cartItems.forEach((product,index) => {
-        if (product.productDetails && product.productDetails[index]) {
-          payload.products.push({
-            product: product._id,
-            quantity: product.productDetails[index].availableStockQty,
-            productDetails: product.productDetails[index]._id,
-            // You may adjust the quantity based on your requirements
-          });
-        } else {
-          console.error("productDetails is undefined or empty for product:", product);
-          // Handle the case where productDetails is undefined or empty
-        }
-      });
+  customerName: formData.fullName,
+  mobileNumber: formData.phoneNumber,
+  alternateNumber: formData.AlternateNumber,
+  landmark: formData.landMark,
+  address: formData.additionalAdd,
+  products: [],
+  totalAmount: cartSubTotal,
+};
+
+const selectedProducts = []; // Create an array to store selected product data
+
+cartItems.forEach((product,index) => {
+  const selectedProduct = product.productDetails.find((details) => details._id === selectProductData._id);
+
+  console.log("selectedProduct", selectedProduct._id);
+  console.log("selectedProduct", selectedProduct);
+  // ourProduct
+  selectedProducts.push({
+    product: product._id,
+    productDetails: ourProduct[index],
+    quantity: product?.selectedSize?.quantity,
+  });
+});
 
 // Add the selectedProducts array to the payload after the loop
 payload.products = selectedProducts;
