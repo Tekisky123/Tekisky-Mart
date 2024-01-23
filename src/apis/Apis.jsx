@@ -5,4 +5,5 @@
 
  export const getAllProductAPI="/admin/getproduct";
  export const saveOrderProductAPI="/order/saveOrder";
+ export const AllOrderAPI="/order/getAllOrders";
 

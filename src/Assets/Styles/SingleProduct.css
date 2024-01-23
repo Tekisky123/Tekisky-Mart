@@ -551,6 +551,7 @@ color: white;
 
 
 
+
   .progress-bar {
     display: flex!important;
     flex-direction: row!important;
@@ -592,6 +593,11 @@ color: white;
   
   
   @media screen and (max-width: 600px) {
+    .ReactModalPortal div {
+
+      padding: 0px!important;
+      inset:0px
+    }
     .progress-bar{
       position: relative;
         top: 30px;

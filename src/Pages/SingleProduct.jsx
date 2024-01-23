@@ -19,15 +19,18 @@ import { Context } from "../Context/Context";
 import { Base_Url, getAllProductAPI } from "../apis/Apis";
 
 const SingleProduct = () => {
+  var arr=[]
   const [imgId, setImgId] = useState(1);
   const [loading, setLoading] = useState(true);
   const [productData, setProductData] = useState(null);
   const { id } = useParams();
-  const [quantity, setQuantity] = useState(1);
+
   const [relatedProduct, setRelatedProduct] = useState([]);
-  const { handleAddToCart, ToastContainer ,setSelectProductData} = useContext(Context);
+  const { handleAddToCart, ToastContainer ,setSelectProductData,setProductSize,handleCartProductQuantity,setQuantity,quantity,setCartItems,setOurProduct,ourProduct} = useContext(Context);
   const [selectedSize, setSelectedSize] = useState("");
   const navigate = useNavigate();
+
+
 
   const getRelatedProduct = async () => {
     try {
@@ -56,12 +59,21 @@ const SingleProduct = () => {
   const handleSizeChange = (event) => {
     const newSize = event.target.value;
     
+    console.log("Size change",arr)
     setSelectedSize(newSize);
+    setProductSize(newSize);
 
     const selectedSizeData = productData?.productDetails.find(
       (details) => details.packetweight === newSize
     );
+
+    arr.push(selectedSizeData._id)
+    // setOurProduct(selectedSizeData._id)
+
+    
+
     setSelectProductData(selectedSizeData)
+    console.log(selectedSizeData)
 
     if (selectedSizeData) {
       const { mrp, offerPrice } = selectedSizeData;
@@ -70,6 +82,7 @@ const SingleProduct = () => {
         selectedSize: {
           mrp: mrp,
           offerPrice: offerPrice || 0,
+          quantity: quantity || 1,
         },
       }));
     }
@@ -85,6 +98,13 @@ const SingleProduct = () => {
     }
   };
 
+  const handleQuantityChange = (type) => {
+  const updatedCartItems = handleCartProductQuantity(type, productData);
+  setCartItems(updatedCartItems);
+  setQuantity(productData?.selectedSize?.quantity || 1);
+};
+
+
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -92,6 +112,7 @@ const SingleProduct = () => {
       );
       setProductData(response.data.getOneProduact);
       setLoading(false);
+      console.log('responseSingle',response.data)
     } catch (error) {
       console.error("Error fetching data:", error);
       setLoading(false);
@@ -99,6 +120,7 @@ const SingleProduct = () => {
     }
   };
 
+  
   useEffect(() => {
     fetchData();
   }, [id]);
@@ -161,8 +183,10 @@ const SingleProduct = () => {
           selectedSize: {
             mrp: mrp,
             offerPrice: offerPrice || 0,
+            quantity: quantity || 1,
           },
         }));
+        setQuantity(quantity || 1);
       }
     }
   }, [productData, selectedSize]);
@@ -272,11 +296,12 @@ const SingleProduct = () => {
                 </div>
                 <div className="purchase-info">
                   <div className="c-counter-btn">
-                    <span className="minus" onClick={decrement}>
+                    <span className="minus" onClick={() => handleCartProductQuantity("dec", productData)}>
                       <FaMinus />
                     </span>
-                    <span className="qty">{quantity}</span>
-                    <span className="plus" onClick={increment}>
+                    {/* <span className="qty">{quantity}</span> */}
+                    <span className="qty">{productData?.selectedSize?.quantity || 1}</span>
+                    <span className="plus"  onClick={() => handleCartProductQuantity("inc", productData)}>
                       <FaPlus />
                     </span>
                   </div>
@@ -286,7 +311,7 @@ const SingleProduct = () => {
                   <button
                     className="btn"
                     onClick={() => {
-                      handleAddToCart(productData, quantity);
+                      handleAddToCart(productData, quantity,0);
                       setQuantity(1);
                     }}
                   >
@@ -361,7 +386,7 @@ const SingleProduct = () => {
                               <div className="buy-button">
                                 <button
                                   onClick={() => {
-                                    handleAddToCart(product, quantity);
+                                    handleAddToCart(product, quantity,0);
                                   }}
                                 >
                                   Add To Cart

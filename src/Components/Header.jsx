@@ -36,7 +36,7 @@ const Header = () => {
       <div className="header-icons">
         <BiSolidSearchAlt2 className="header-icon" />
         <button className="icons cart-btn" onClick={() => navigate("/cart")}>
-          <span>{cartItems.length}</span>
+        <span>{cartItems ? cartItems.length : 0}</span>
           <FaCartArrowDown className="header-icon" />
         </button>
         <Link to={"/add-products"}><FaUser className="header-icon" /></Link>

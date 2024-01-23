@@ -16,12 +16,17 @@ const Cart = () => {
     handleRemoveFromCart,
     cartSubTotal,
     handleCartProductQuantity,
-    selectProductData
+    selectProductData,
+    setOurProduct,ourProduct
   } = useContext(Context);
+
+  console.log("ourProduct",ourProduct)
 
   const navigate = useNavigate();
 
   console.log("selectProductData",selectProductData)
+  console.log("cartItems",cartItems)
+
   return (
     <div className="cx-cart m-4">
       <Row>
@@ -32,7 +37,7 @@ const Cart = () => {
         </Col>
         <Col xs={12} md={8} xl={8}>
           <div className="cart-item-wrapper">
-            {cartItems.map((item) => (
+            {cartItems.map((item,index) => (
               <div className="item-wrapper" key={item._id}>
                 <div className="p-img">
                   <img src={item.imageURL[0]} alt="" />
@@ -48,7 +53,7 @@ const Cart = () => {
                   >
                     <FaMinus />
                   </span>
-                  <span className="qty">{item?.productDetails[0]?.availablePackQty}</span>
+                  <span className="qty">{item.selectedSize?.quantity || 0}</span>
                   <span
                     className="plus"
                     onClick={() => handleCartProductQuantity("inc", item)}
@@ -57,8 +62,8 @@ const Cart = () => {
                   </span>
                 </div>
                 <div className="p-price">
-                  <span>{item?.productDetails[0]?.availablePackQty}</span> x{" "}
-                  <span>{item?.productDetails[0]?.offerPrice} &#8377;</span>
+                  <span>{item?.selectedSize?.quantity}</span>{" "} x {" "}
+                  <span>{item?.selectedSize?.offerPrice} &#8377;</span>
                 </div>
                 <div className="remove-btn">
                   <button
@@ -104,7 +109,7 @@ const Cart = () => {
                 style={{ width: "100%", marginBottom: "0.5rem" }}
                 className="checkoutBtn"
                 onClick={() => navigate("/payment_step")}
-                disabled={cartItems.length <= 0}
+                disabled={cartSubTotal === 0 || isNaN(cartSubTotal) || cartItems.length <= 0}
               >
                 Proceed To Checkout
               </button>

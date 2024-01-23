@@ -10,6 +10,7 @@ import Footer from "./Components/Footer";
 import ProductForm from "./Pages/ProductForm";
 import PaymentStep from "./Pages/PaymentStep";
 import AddProductForm from "./Pages/AddProductForm";
+import AllOrder from "./Admin/order/AllOrder";
 
 // app apps hello
 function App() {
@@ -28,6 +29,7 @@ function App() {
       <Route path="/product-form" element={<ProductForm/>}/>
       <Route path="/payment_step" element={<PaymentStep/>}/>
       <Route path="/add-products" element={<AddProductForm/>}/>
+      <Route path="/all-order" element={<AllOrder/>}/>
 
     </Routes>
     <Footer/>

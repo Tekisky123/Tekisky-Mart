@@ -65,22 +65,22 @@ const Products = () => {
             ))
           ) : (
             // Render actual product cards when data is available
-            products.map((product) => (
+            products.map((product,index) => (
               <Col key={product._id} xs={12} md={6} xl={3}>
                 <div className="Saller">
                   <div className="subSaller">
                     <img
                       onClick={() => navigateToSingleProduct(product._id)}
-                      src={product.imageURL[0]}
+                      src={product.imageURL[index]}
                       alt={product.productName}
                     />
                     <div className="BestSellerDetails">
                       <h6>{product.productName}</h6>
-                      <p>₹{parseFloat(product?.productDetails[0]?.offerPrice).toFixed(2)}</p>
+                      <p>₹{parseFloat(product?.productDetails[index]?.offerPrice).toFixed(2)}</p>
                       <div className="buy-button">
                         <button
                           onClick={() => {
-                            handleAddToCart(product, quantity);
+                            handleAddToCart(product, quantity,index);
                           }}
                         >
                           Add To Cart

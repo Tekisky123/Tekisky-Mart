@@ -8,7 +8,9 @@ const AppContext = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [ourProduct, setOurProduct] = useState([]);
   const [selectProductData, setSelectProductData] = useState(null);
+  const [productSize, setProductSize] = useState("");
   const [cartCount, setCartCount] = useState(0);
   const [cartSubTotal, setCartSubTotal] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -28,16 +30,17 @@ const decrement = () => {
 useEffect(() => {
   let subTotal = 0;
   cartItems.forEach(item => {
-    if (item && item.productDetails && item.productDetails[0]) {
-      subTotal += item.productDetails[0].offerPrice * item.productDetails[0].availablePackQty;
+    if (item && item.selectedSize ) {
+      subTotal += item?.selectedSize?.offerPrice * item?.selectedSize?.quantity;
     }
   });
   setCartSubTotal(subTotal);
 
   let count = 0;
+
   cartItems.forEach(item => {
-    if (item && item.productDetails && item.productDetails[0]) {
-      count += item.productDetails[0].availablePackQty;
+    if (item && item.selectedSize) {
+      count += item.selectedSize;
     }
   });
   setCartCount(count);
@@ -50,31 +53,27 @@ useEffect(() => {
       setCartItems(JSON.parse(storedCartItems));
     }
     
-    // setSelectProductData(localStorage.getItem('selectProductData'));
   }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem('selectProductData', selectProductData);
-  // }, [selectProductData])
-
   
   
-  const handleAddToCart = (product, quantity) => {
+  const handleAddToCart = (product, quantity,currentItem) => {
+
+    ourProduct.push(selectProductData._id)
    
     let items = [...cartItems];
     let index = items.findIndex(p => p.id === product._id);
 
     if (index !== -1) {
-      if (Array.isArray(items[index].productDetails[0].availablePackQty)) {
-        items[index].productDetails[0].availablePackQty += quantity;
+      if (Array.isArray(items[index].productDetails[currentItem].availablePackQty)) {
+        items[index].productDetails[currentItem].availablePackQty += quantity;
       } else {
-        items[index].productDetails[0].availablePackQty = [quantity];
+        items[index].productDetails[currentItem].availablePackQty = [quantity];
       }
     } else {
-      if (Array.isArray(product.productDetails[0].availablePackQty)) {
-        product.productDetails[0].availablePackQty = quantity;
+      if (Array.isArray(product.productDetails[currentItem].availablePackQty)) {
+        product.productDetails[currentItem].availablePackQty = quantity;
       } else {
-        product.productDetails[0].availablePackQty = [quantity];
+        product.productDetails[currentItem].availablePackQty = [quantity];
       }
       items = [...items, product];
     }
@@ -98,10 +97,10 @@ useEffect(() => {
 };
 
 const handleCartProductQuantity = (type, product) => {
-  setCartItems(prevItems => {
-    return prevItems.map(item => {
+  setCartItems((prevItems) => {
+    return prevItems.map((item) => {
       if (item._id === product._id) {
-        let productDetails = item.productDetails[0];
+        let productDetails = item.selectedSize;
 
         if (!productDetails) {
           // Handle the case where productDetails is undefined
@@ -109,15 +108,15 @@ const handleCartProductQuantity = (type, product) => {
         }
 
         if (type === "inc") {
-          // Ensure that productDetails.availablePackQty exists and is a number
-          if (typeof productDetails.availablePackQty === 'number') {
-            productDetails.availablePackQty += 1;
+          // Ensure that productDetails.quantity exists and is a number
+          if (typeof productDetails.quantity === "number") {
+            productDetails.quantity += 1;
           } else {
-            // If availablePackQty is not a number, set it to 1
-            productDetails.availablePackQty = 1;
+            // If quantity is not a number, set it to 1
+            productDetails.quantity = 1;
           }
-        } else if (type === "dec" && productDetails.availablePackQty > 1) {
-          productDetails.availablePackQty -= 1;
+        } else if (type === "dec" && productDetails.quantity > 1) {
+          productDetails.quantity -= 1;
         }
       }
 
@@ -132,6 +131,12 @@ const handleCartProductQuantity = (type, product) => {
   return (
     <Context.Provider
       value={{
+        ourProduct,
+        setOurProduct,
+        quantity,
+        setQuantity,
+        productSize,
+        setProductSize,
         selectProductData,
         setSelectProductData,
         toast,

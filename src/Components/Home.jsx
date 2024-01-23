@@ -188,12 +188,12 @@ const Home = () => {
               ))
             ) : (
               // Render actual product cards when data is available
-              bestSellers.map((product) => (
+              bestSellers.map((product,index) => (
                 <Col key={product._id} xs={12} md={6} xl={3}>
                   <div className="Saller">
                     <div className="subSaller">
                       <img
-                        src={product.imageURL[0]}
+                        src={product.imageURL[index]}
                         alt={product.productName}
                         onClick={() => navigateToSingleProduct(product._id)}
                       />
@@ -203,7 +203,7 @@ const Home = () => {
                         <div className="buy-button">
                           <button
                             onClick={() => {
-                              handleAddToCart(product, quantity);
+                              handleAddToCart(product, quantity,index);
                             }}
                           >
                             Add To Cart
