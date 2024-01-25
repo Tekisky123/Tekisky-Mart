@@ -53,7 +53,7 @@ const Cart = () => {
                   >
                     <FaMinus />
                   </span>
-                  <span className="qty">{item.selectedSize?.quantity || 0}</span>
+                  <span className="qty">{item?.selectedSize?.quantity || item?.productDetails[0]?.quantity}</span>
                   <span
                     className="plus"
                     onClick={() => handleCartProductQuantity("inc", item)}
@@ -62,13 +62,13 @@ const Cart = () => {
                   </span>
                 </div>
                 <div className="p-price">
-                  <span>{item?.selectedSize?.quantity}</span>{" "} x {" "}
-                  <span>{item?.selectedSize?.offerPrice} &#8377;</span>
+                  <span>{item?.selectedSize?.quantity||1}</span>{" "} x {" "}
+                  <span>{item?.selectedSize?.offerPrice||item?.productDetails[0]?.offerPrice} &#8377;</span>
                 </div>
                 <div className="remove-btn">
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleRemoveFromCart(item)}
+                    onClick={() => handleRemoveFromCart(item,index)}
                   >
                     <FaTrash />
                   </button>

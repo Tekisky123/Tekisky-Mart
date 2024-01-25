@@ -16,7 +16,8 @@ const PaymentStep = () => {
     handleCartProductQuantity,
     ToastContainer,
     toast,
-    selectProductData,ourProduct
+    selectProductData,
+    ourProduct,
   } = useContext(Context);
   console.log(cartItems);
   const [status, setStatus] = useState(0);
@@ -60,51 +61,55 @@ const PaymentStep = () => {
     console.log("Order details:", cartItems);
     try {
       const payload = {
-  customerName: formData.fullName,
-  mobileNumber: formData.phoneNumber,
-  alternateNumber: formData.AlternateNumber,
-  landmark: formData.landMark,
-  address: formData.additionalAdd,
-  products: [],
-  totalAmount: cartSubTotal,
-};
+        customerName: formData.fullName,
+        mobileNumber: formData.phoneNumber,
+        alternateNumber: formData.AlternateNumber,
+        landmark: formData.landMark,
+        address: formData.additionalAdd,
+        products: [],
+        totalAmount: cartSubTotal,
+      };
 
-const selectedProducts = []; // Create an array to store selected product data
+      const selectedProducts = []; // Create an array to store selected product data
 
-cartItems.forEach((product,index) => {
-  const selectedProduct = product.productDetails.find((details) => details._id === selectProductData._id);
+      cartItems.forEach((product, index) => {
+        // const selectedProduct = product.productDetails.find((details) => details._id === selectProductData._id);
+        // console.log("selectedProduct", selectedProduct._id);
+        // console.log("selectedProduct", selectedProduct);
+        // ourProduct
 
-  console.log("selectedProduct", selectedProduct._id);
-  console.log("selectedProduct", selectedProduct);
-  // ourProduct
-  selectedProducts.push({
-    product: product._id,
-    productDetails: ourProduct[index],
-    quantity: product?.selectedSize?.quantity,
-  });
-});
+        selectedProducts.push({
+          product: product._id,
+          productDetails: ourProduct[index] || product.productDetails[0]._id,
+          quantity: product?.selectedSize?.quantity || product.productDetails[0].quantity,
+        });
+      });
 
-// Add the selectedProducts array to the payload after the loop
-payload.products = selectedProducts;
+      // Add the selectedProducts array to the payload after the loop
+      payload.products = selectedProducts;
 
-console.log("payload",payload)
-const response = await axios.post(`${Base_Url}${saveOrderProductAPI}`, payload);
-const data = response.data;
-if (data.success) {
-  toast.success("Your order has been placed successfully. Our operator will contact you shortly");
-  // Close the modal only after a successful request
-  closeModal();
-} else {
-  // Handle error if needed
-  console.error("Error fetching data:", data.error);
-  // You might want to show an error message to the user here
-}
-} catch (error) {
-// Handle network error
-console.error("Network error:", error);
-// You might want to show an error message to the user here
-}
-
+      console.log("payload", payload);
+      const response = await axios.post(
+        `${Base_Url}${saveOrderProductAPI}`,
+        payload
+      );
+      const data = response.data;
+      if (data.success) {
+        toast.success(
+          "Your order has been placed successfully. Our operator will contact you shortly"
+        );
+        // Close the modal only after a successful request
+        closeModal();
+      } else {
+        // Handle error if needed
+        console.error("Error fetching data:", data.error);
+        // You might want to show an error message to the user here
+      }
+    } catch (error) {
+      // Handle network error
+      console.error("Network error:", error);
+      // You might want to show an error message to the user here
+    }
   };
 
   const handleInputChange = (event) => {

@@ -26,7 +26,7 @@ const SingleProduct = () => {
   const { id } = useParams();
 
   const [relatedProduct, setRelatedProduct] = useState([]);
-  const { handleAddToCart, ToastContainer ,setSelectProductData,setProductSize,handleCartProductQuantity,setQuantity,quantity,setCartItems,setOurProduct,ourProduct} = useContext(Context);
+  const { handleAddToCart, ToastContainer ,setSelectProductData,selectProductData,setProductSize,handleCartProductQuantity,setQuantity,quantity,setCartItems,setOurProduct,ourProduct,setSingleProductSubTotal} = useContext(Context);
   const [selectedSize, setSelectedSize] = useState("");
   const navigate = useNavigate();
 
@@ -73,7 +73,7 @@ const SingleProduct = () => {
     
 
     setSelectProductData(selectedSizeData)
-    console.log(selectedSizeData)
+    console.log("singleProductSubTotal",selectedSizeData)
 
     if (selectedSizeData) {
       const { mrp, offerPrice } = selectedSizeData;
@@ -191,7 +191,10 @@ const SingleProduct = () => {
     }
   }, [productData, selectedSize]);
   
-
+const singleProductCheckout=()=>{
+  setSingleProductSubTotal(selectProductData)
+  navigate("/payment_step")
+}
   
 
   return (
@@ -322,7 +325,8 @@ const SingleProduct = () => {
                 <div>
                   <button
                     className="checkoutBtn"
-                    onClick={() => navigate("/payment_step")}
+                    // onClick={() => navigate("/payment_step")}
+                    onClick={singleProductCheckout}
                   >
                     Proceed To Checkout
                   </button>

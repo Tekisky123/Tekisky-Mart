@@ -17,16 +17,17 @@ import { Context } from "../Context/Context";
 
 const Home = () => {
 
-  const { handleAddToCart, ToastContainer } = useContext(Context);
+  const { handleAddToCartHome, ToastContainer,quantity } = useContext(Context);
   const navigate = useNavigate();
   const [bestSellers, setBestSellers] = useState([]);
   const [loading, setLoading] = useState(true); // Track loading state
-  const [quantity, setQuantity] = useState(1);
+
 
   const getBestSellersData = async () => {
     try {
       const response = await axios.get(`${Base_Url}${getAllProductAPI}`);
       const data = response.data;
+      console.log("responce",data.products)
       if (data.success) {
         setBestSellers(data.products);
         setLoading(false); // Set loading to false after successful data fetch
@@ -193,7 +194,7 @@ const Home = () => {
                   <div className="Saller">
                     <div className="subSaller">
                       <img
-                        src={product.imageURL[index]}
+                        src={product.imageURL[0]}
                         alt={product.productName}
                         onClick={() => navigateToSingleProduct(product._id)}
                       />
@@ -203,7 +204,7 @@ const Home = () => {
                         <div className="buy-button">
                           <button
                             onClick={() => {
-                              handleAddToCart(product, quantity,index);
+                              handleAddToCartHome(product, quantity,index);
                             }}
                           >
                             Add To Cart
